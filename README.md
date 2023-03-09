@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/darideveloper/europeanstartups_scraper">
+  <a href="https://github.com/darideveloper/portfolio_api">
     <img src="imgs/logo.png" alt="Logo" width="200" height="80">
   </a>
 
@@ -30,9 +30,9 @@
   <p align="center">
     Python scraper for extract data from the page <a href="https://app.europeanstartups.co/companies.startups/f/data_type/anyof_Verified/regions/allof_European%20Union">https://app.europeanstartups.co/companies.startups/f/data_type/anyof_Verified/regions/allof_European%20Union</a>, using python, and a google chrome data with a premium account already logged.
     <br />
-    <a href="https://github.com/darideveloper/europeanstartups_scraper/issues">Report Bug</a>
+    <a href="https://github.com/darideveloper/portfolio_api/issues">Report Bug</a>
     ·
-    <a href="https://github.com/darideveloper/europeanstartups_scraper/issues">Request Feature</a>
+    <a href="https://github.com/darideveloper/portfolio_api/issues">Request Feature</a>
   </p>
 </div>
 
@@ -100,18 +100,29 @@ To get a local copy up and running follow these simple example steps.
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/darideveloper/europeanstartups_scraper.git
-   ```
+```sh
+git clone https://github.com/darideveloper/portfolio_api.git
+```
 2. Install python packages (opening a terminal in the project folder)
-   ```sh
-   python -m pip install -r requirements.txt 
-   ```
-3. Create a `.env` file in the project folder.
-4. Update your chrome path in the `.env` file (note: the chrome path is the folder where chrome data its installed)
-   ```js
-   CHROME_PATH = C:\Users\<<your-user-name>>\AppData\Local\Google\Chrome\User Data
-   ```
+```sh
+python -m pip install -r requirements.txt 
+```
+3. Rename the file `sample.env` to `.env` 
+4. Update your options and database credentials in `.env` file
+```sh
+DEBUG = True
+DB_ENGINE = django.db.backends.postgresql
+DB_NAME = portfolio
+DB_USER = daridev
+DB_PASSWORD = 2nMIe8McUCcbDhPPGUCNpJC2iNgKDtP5
+DB_HOST = dpg-cef3eqsgqg4b3haa6eq0-a.ohio-postgres.render.com
+DB_POST = 5432
+```
+5. Update your languaje and time zone in the 'portfolio/settings.py' file, 
+```sh
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'America/Mexico_City'
+```
 
 
 <!-- USAGE EXAMPLES -->
@@ -134,7 +145,7 @@ To get a local copy up and running follow these simple example steps.
 - [x] Extract all data from the page
 - [x] Save output data in csv file 
 
-See the [open issues](https://github.com/darideveloper/europeanstartups_scraper/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/darideveloper/portfolio_api/issues) for a full list of proposed features (and known issues).
 
 
 <!-- CONTRIBUTING -->
@@ -165,21 +176,21 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Darideveloper - [@developerdari](https://twitter.com/developerdari) - darideveloper@gmail.com.com
 
-Project Link: [https://github.com/darideveloper/europeanstartups_scraper](https://github.com/darideveloper/europeanstartups_scraper)
+Project Link: [https://github.com/darideveloper/portfolio_api](https://github.com/darideveloper/portfolio_api)
 
 
 <!-- MARKDOWN LINKS & imgs -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/darideveloper/europeanstartups_scraper.svg?style=for-the-badge
-[contributors-url]: https://github.com/darideveloper/europeanstartups_scraper/graphs/contributors
+[contributors-url]: https://github.com/darideveloper/portfolio_api/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/darideveloper/europeanstartups_scraper.svg?style=for-the-badge
-[forks-url]: https://github.com/darideveloper/europeanstartups_scraper/network/members
+[forks-url]: https://github.com/darideveloper/portfolio_api/network/members
 [stars-shield]: https://img.shields.io/github/stars/darideveloper/europeanstartups_scraper.svg?style=for-the-badge
-[stars-url]: https://github.com/darideveloper/europeanstartups_scraper/stargazers
+[stars-url]: https://github.com/darideveloper/portfolio_api/stargazers
 [issues-shield]: https://img.shields.io/github/issues/darideveloper/europeanstartups_scraper.svg?style=for-the-badge
-[issues-url]: https://github.com/darideveloper/europeanstartups_scraper/issues
+[issues-url]: https://github.com/darideveloper/portfolio_api/issues
 [license-shield]: https://img.shields.io/github/license/darideveloper/europeanstartups_scraper.svg?style=for-the-badge
-[license-url]: https://github.com/darideveloper/europeanstartups_scraper/blob/master/LICENSE.txt
+[license-url]: https://github.com/darideveloper/portfolio_api/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/francisco-dari-hernandez-6456b6181/
 [product-screenshot]: ./imgs/screenshot.gif
