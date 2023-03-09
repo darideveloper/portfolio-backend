@@ -1,5 +1,5 @@
 Django==4.0.4
-psycopg2-binary==2.9.5 # for PostgreSQL
+psycopg2-binary==2.9.5 # for PostgreSQL. Replace with your db manager
 python-dotenv==0.21.0
 whitenoise==6.2.0
 gunicorn==20.1.0
