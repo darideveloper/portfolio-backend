@@ -10,8 +10,18 @@ admin.site.index_title = "API Administration"
     
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register (r'badges', views.BadgeViewSet)
+router.register (r'tools', views.ToolViewSet)
+router.register (r'commands', views.CommandViewSet)
+router.register (r'roadmaps', views.RoadMapViewSet)
+router.register (r'users', views.UserViewSet)
+router.register (r'user-badges', views.UserBadgeViewSet)
+router.register (r'projects', views.ProjectViewSet)
+router.register (r'projects-badges', views.ProjectBadgeViewSet)
+router.register (r'projects-tools', views.ProjectToolViewSet)
+router.register (r'projects-commands', views.ProjectCommandViewSet)
+router.register (r'projects-roadmaps', views.ProjectRoadMapViewSet)
+router.register (r'groups', views.GroupViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
