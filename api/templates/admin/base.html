@@ -1,0 +1,45 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'api/imgs/favicon.ico' %}" />
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  :root {
+    --primary: #363e57;
+    --secondary: #404B69;
+    --accent: #EEEEEE;
+    --body-bg: #232931;
+    --darkened-bg: #181c22;
+    --link-fg: #EEEEEE;
+    --link-selected-fg: #4ECCA3;
+    --link-hover-color: #4ECCA3;
+    --selected-bg: #14181d;
+    --body-quiet-color: #44b18d;
+    --hairline-color: #181c22;
+    --border-color: #393E46;
+    --selected-row: #393E46;
+    --object-tools-bg: #393E46;
+    --header-color: #f0f0f0;
+  }
+
+  .button {
+    background-color: #393E46 !important;
+  }
+
+  option, label, input {
+    color: #EEEEEE !important;
+  }
+
+  .current-model a {
+    color: #DDDDDD !important;
+  }
+
+  h1, h2, h3 {
+    color: #b1b1b1 !important;
+  }
+  
+</style>
+{% endblock %}
