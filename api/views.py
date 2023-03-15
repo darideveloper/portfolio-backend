@@ -1,7 +1,11 @@
-from django.contrib.auth.models import Group
+from . import models, serializers
 from rest_framework import viewsets
 from rest_framework import permissions
-from . import models, serializers
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import Group
+from rest_framework.authtoken.models import Token
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 class BadgeViewSet(viewsets.ModelViewSet):
     """
