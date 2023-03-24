@@ -7,12 +7,12 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-class BadgeViewSet(viewsets.ModelViewSet):
+class TagViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows badges to be viewed or edited.
+    API endpoint that allows Tags to be viewed or edited.
     """
-    queryset = models.Badge.objects.all().order_by('id')
-    serializer_class = serializers.BadgeSerializer
+    queryset = models.Tag.objects.all().order_by('id')
+    serializer_class = serializers.TagSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class ToolViewSet(viewsets.ModelViewSet):
@@ -23,22 +23,6 @@ class ToolViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ToolSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-class CommandViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows commands to be viewed or edited.
-    """
-    queryset = models.Command.objects.all().order_by('id')
-    serializer_class = serializers.CommandSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-class RoadMapViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows roadmaps to be viewed or edited.
-    """
-    queryset = models.RoadMap.objects.all().order_by('id')
-    serializer_class = serializers.RoadMapSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -47,52 +31,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-class UserBadgeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows user badges to be viewed or edited.
-    """
-    queryset = models.UserBadge.objects.all().order_by('id')
-    serializer_class = serializers.UserBadgeSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
 class ProjectViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows projects to be viewed or edited.
     """
     queryset = models.Project.objects.all().order_by('id')
     serializer_class = serializers.ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
-class ProjectBadgeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows project badges to be viewed or edited.
-    """
-    queryset = models.ProjectBadge.objects.all().order_by('id')
-    serializer_class = serializers.ProjectBadgeSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
-class ProjectToolViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows project tools to be viewed or edited.
-    """
-    queryset = models.ProjectTool.objects.all().order_by('id')
-    serializer_class = serializers.ProjectToolSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
-class ProjectCommandViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows project commands to be viewed or edited.
-    """
-    queryset = models.ProjectCommand.objects.all().order_by('id')
-    serializer_class = serializers.ProjectCommandSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
-class ProjectRoadMapViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows project roadmaps to be viewed or edited.
-    """
-    queryset = models.ProjectRoadMap.objects.all().order_by('id')
-    serializer_class = serializers.ProjectRoadMapSerializer
     permission_classes = [permissions.IsAuthenticated]
     
 class GroupViewSet(viewsets.ModelViewSet):
