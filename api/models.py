@@ -40,7 +40,11 @@ class Project (models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
     tools = models.ManyToManyField(Tool)
-    commands = models.TextField(null=True)
+    install = models.TextField(null=True)
+    run = models.TextField(null=True)
+    build = models.TextField(null=True)
+    test = models.TextField(null=True)
+    deploy = models.TextField(null=True)
     roadmap = models.TextField(null=True)
     web_page = models.URLField(max_length=200, null=True)
     
