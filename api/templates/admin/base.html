@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block extrahead %}
-    <link rel="shortcut icon" href="{% static 'api/imgs/favicon.ico' %}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="shortcut icon" href="{% static 'api/imgs/favicon.ico' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
 <style>
-
   /* admin colors */
   :root {
     --primary: #363e57;
@@ -33,24 +32,40 @@
     background-color: #393E46 !important;
   }
 
-  option, label, input {
-    color: #EEEEEE !important;
+  option,
+  label,
+  input {
+    color: var(--accent) !important;
   }
 
   option:checked {
-    background-color: #404B69 !important;
+    background-color: var(--secondary) !important;
   }
 
   .current-model a {
     color: #DDDDDD !important;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     color: #b1b1b1 !important;
   }
 
-  #user-tools a:focus, #user-tools a:hover {
+  #user-tools a:focus,
+  #user-tools a:hover {
     color: var(--link-hover-color)
+  }
+
+  textarea:focus,
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+
+  thead th a:link, thead th a:visited  {
+    opacity: 0.7;
+    color: var(--accent);
   }
 
   /* Markdown styles */
@@ -58,11 +73,11 @@
     border: none !important;
   }
 
-  .editor-toolbar > a[class] {
+  .editor-toolbar>a[class] {
     color: var(--accent) !important;
   }
 
-  .editor-toolbar > a[class].active {
+  .editor-toolbar>a[class].active {
     color: var(--primary) !important;
   }
 
@@ -72,10 +87,31 @@
     border: none;
   }
 
+  .CodeMirror.cm-s-paper.CodeMirror-wrap.CodeMirror-focused {
+    border: 1px solid var(--link-selected-fg)
+  }
+
   .CodeMirror-cursor {
     border-left: 1px solid var(--accent) !important;
   }
 
-  
+  /* Scroll bar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--body-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--link-hover-color);
+    margin-top: -5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
 </style>
 {% endblock %}
