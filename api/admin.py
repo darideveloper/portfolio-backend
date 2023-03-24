@@ -6,6 +6,12 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'image', 'redirect')
     ordering = ('name', 'image', 'redirect')
     search_fields = ('name', 'image')
+    
+@admin.register(models.Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image', 'redirect')
+    ordering = ('name', 'image', 'redirect')
+    search_fields = ('name', 'image')
 
 @admin.register(models.Tool)
 class ToolAdmin(admin.ModelAdmin):
