@@ -5,24 +5,64 @@ from rest_framework import serializers
 class TagSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Tag
-        fields = ['name', 'tag_link', 'redirect_link']
+        fields = [
+            'id', 
+            'name', 
+            'image', 
+            'redirect'
+        ]
+
+class ContactSerializer (serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Contact
+        fields = [
+            'id', 
+            'name', 
+            'image', 
+            'redirect', 
+        ]
 
 class ToolSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Tool
-        fields = ['name', 'version', 'image']
-  
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.User
-        fields = ['web_page', 'username', 'email', 'first_name', 'last_name', 'password', 'is_staff', 'is_active', 'date_joined', 'last_login', 'is_superuser', 'groups']
+        fields = [
+            'id', 
+            'name', 
+            'version', 
+            'image'
+        ]
         
+class MediaSerializer (serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Media
+        fields = [
+            'id', 
+            'name', 
+            'link', 
+            'project', 
+            'media_type'
+        ]
+  
 class ProjectSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Project
-        fields = ['name', 'start_date', 'last_update', 'logo', 'desciption', 'details']
-        
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['name']
+        fields = [
+            'id', 
+            'name', 
+            'start_date', 
+            'last_update', 
+            'logo',
+            'web_page', 
+            'description', 
+            'details', 
+            'repo', 
+            'license',
+            'tags', 
+            'tools', 
+            'install', 
+            'run', 
+            'build',
+            'test',
+            'deploy',
+            'roadmap'
+        ]

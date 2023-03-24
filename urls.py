@@ -13,14 +13,13 @@ admin.site.index_title = "API Administration"
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register (r'tags', views.TagViewSet)
+router.register (r'contacts', views.ContactViewSet)
 router.register (r'tools', views.ToolViewSet)
-router.register (r'users', views.UserViewSet)
+router.register (r'media', views.MediaViewSet)
 router.register (r'projects', views.ProjectViewSet)
-router.register (r'groups', views.GroupViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include(router.urls)),
     path('api-token-auth/', auth_views.obtain_auth_token, name='api-token-auth'),
 ]

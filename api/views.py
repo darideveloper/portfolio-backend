@@ -1,11 +1,7 @@
 from . import models, serializers
 from rest_framework import viewsets
 from rest_framework import permissions
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
-from rest_framework.authtoken.models import Token
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 
 class TagViewSet(viewsets.ModelViewSet):
     """
@@ -13,6 +9,14 @@ class TagViewSet(viewsets.ModelViewSet):
     """
     queryset = models.Tag.objects.all().order_by('id')
     serializer_class = serializers.TagSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+class ContactViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows contacts to be viewed or edited.
+    """
+    queryset = models.Contact.objects.all().order_by('id')
+    serializer_class = serializers.ContactSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class ToolViewSet(viewsets.ModelViewSet):
@@ -23,26 +27,18 @@ class ToolViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ToolSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-class UserViewSet(viewsets.ModelViewSet):
+class MediaViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows media to be viewed or edited.
     """
-    queryset = models.User.objects.all().order_by('-date_joined')
-    serializer_class = serializers.UserSerializer
+    queryset = models.Media.objects.all().order_by('id')
+    serializer_class = serializers.MediaSerializer
     permission_classes = [permissions.IsAuthenticated]
     
 class ProjectViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows projects to be viewed or edited.
     """
-    queryset = models.Project.objects.all().order_by('id')
+    queryset = models.Project.objects.all().order_by('last_update')
     serializer_class = serializers.ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = serializers.GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
