@@ -5,8 +5,8 @@ from django.utils import timezone
 class Tag (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, unique=True)
-    tag_link = models.URLField (max_length=200)
-    redirect_link = models.URLField (max_length=200)
+    image = models.URLField (max_length=200)
+    redirect = models.URLField (max_length=200)
     
     def __str__(self):
         return self.name
@@ -27,6 +27,20 @@ class User (AbstractUser):
     def __str__(self):
         return f"{self.username}"
 
+class Media (models.Model):
+    CHOICES = [
+        ("video", "Video"),
+        ("image", "Image"),
+    ]
+    id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
+    name = models.CharField(max_length=80, unique=True)
+    link = models.URLField(max_length=200)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    media_type = models.CharField(max_length=10, choices=CHOICES, default="image")
+    
+    def __str__(self):
+        return f"{self.name} - {self.project} ({self.link})"
+
 class Project (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=80, unique=True)
@@ -35,6 +49,7 @@ class Project (models.Model):
     logo = models.URLField(max_length=200, null=True)
     description = models.TextField()
     details = models.TextField()
+    repo = models.URLField(max_length=200, null=True)
     clone_repo = models.BooleanField(default=False)
     license = models.CharField(max_length=20, default='MIT')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -49,6 +64,10 @@ class Project (models.Model):
     web_page = models.URLField(max_length=200, null=True)
     
     def __str__(self):
-        return f"{self.name}"
+        if self.web_page:
+            return f"{self.name} ({self.web_page})"
+        else:
+            return f"{self.name} ({self.repo})"
+    
 
     
