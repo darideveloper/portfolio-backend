@@ -1,5 +1,5 @@
-from django.contrib import admin
 from . import models
+from django.contrib import admin
 
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
@@ -19,14 +19,8 @@ class ToolAdmin(admin.ModelAdmin):
     ordering = ('name', 'version', 'image')
     search_fields = ('name', 'version')
     
-@admin.register(models.User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'last_login', 'web_page')
-    ordering = ('username', 'email', 'web_page')
-    search_fields = ('username', 'email', 'web_page')
-    
 @admin.register(models.Media)
-class UserMedia(admin.ModelAdmin):
+class MediAdmin(admin.ModelAdmin):
     list_display = ('name', 'link', 'project', 'media_type')
     ordering = ('name', 'link', 'project', 'media_type')
     search_fields = ('name', 'link', 'project__name')
