@@ -16,6 +16,7 @@ class Contact (models.Model):
     name = models.CharField(max_length=50, unique=True, help_text="contact element name")
     image = models.URLField (max_length=200, help_text="link of the contact element image")
     redirect = models.URLField (max_length=200, help_text="link where the contact element redirects")
+    user = models.ForeignKey('User', on_delete=models.CASCADE, help_text='from user')
     
     def __str__(self):
         return f"{self.name} ({self.redirect})"
@@ -31,7 +32,6 @@ class Tool (models.Model):
         
 class User (AbstractUser):
     web_page = models.URLField (max_length=200, blank=True, help_text="link to the user's web page")
-    contacts = models.ManyToManyField(Contact, help_text="contact information of the user")
     
     def __str__(self):
         return f"{self.username}"
