@@ -22,7 +22,7 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     change_form_template = 'admin/change_form_project.html' 
-    list_display = ('name', 'user', 'start_date', 'last_update', 'logo', 'description')
+    list_display = ('name', 'user', 'start_date', 'last_update', 'logo', 'web_page', 'description')
     ordering = ('name', 'user', 'start_date', 'last_update')
-    search_fields = ('name', 'user__username', 'description', 'details')
-    list_filter = ('user__username', 'start_date', 'last_update')
+    search_fields = ('name', 'user__username', 'description', 'details', 'tools__name', 'tools__version', 'tags__name', 'commands', 'roadmap', 'web_page')
+    list_filter = ('user__username', 'start_date', 'last_update', 'user', 'tags', 'tools')
