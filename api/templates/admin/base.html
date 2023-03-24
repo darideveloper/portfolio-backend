@@ -3,10 +3,14 @@
 
 {% block extrahead %}
     <link rel="shortcut icon" href="{% static 'api/imgs/favicon.ico' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
 <style>
+
+  /* admin colors */
   :root {
     --primary: #363e57;
     --secondary: #404B69;
@@ -48,6 +52,30 @@
   #user-tools a:focus, #user-tools a:hover {
     color: var(--link-hover-color)
   }
+
+  /* Markdown styles */
+  .editor-toolbar {
+    border: none !important;
+  }
+
+  .editor-toolbar > a[class] {
+    color: var(--accent) !important;
+  }
+
+  .editor-toolbar > a[class].active {
+    color: var(--primary) !important;
+  }
+
+  .CodeMirror.cm-s-paper.CodeMirror-wrap {
+    background-color: var(--darkened-bg);
+    color: var(--accent);
+    border: none;
+  }
+
+  .CodeMirror-cursor {
+    border-left: 1px solid var(--accent) !important;
+  }
+
   
 </style>
 {% endblock %}
