@@ -1,0 +1,28 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script>
+  
+  // Disable other user projects
+  const projects = {{user_projects|safe}}
+  const user_id = {{user_id}}
+
+  const select = document.querySelector('#id_project')
+  const options = document.querySelectorAll('#id_project > option:not(:first-child)')
+  options.forEach(option => {
+    option_value = option.value
+    if (!projects.includes(option_value)) {
+      select.removeChild(option)
+    }
+  });
+
+</script>
+
+<style>
+  .hide {
+    display: none;
+  }
+</style>
+{% endblock %}

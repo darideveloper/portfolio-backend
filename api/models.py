@@ -68,8 +68,10 @@ class Project (models.Model):
     def __str__(self):
         if self.web_page:
             return f"{self.name} ({self.web_page})"
-        else:
+        elif self.repo:
             return f"{self.name} ({self.repo})"
+        else:
+            return f"{self.name}"
     
 
     

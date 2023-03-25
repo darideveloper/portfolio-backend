@@ -2,17 +2,9 @@
 {% load static %}
 
 {% block admin_change_form_document_ready %}
-
 {{ block.super }}
 
 <!-- Import code from other file -->
 {% include 'admin/change_form_disable_user.html' %}
 
-<script>
-  // Create markdown components for text areas
-  let fields = document.querySelectorAll("textarea")
-  fields.forEach(field => {
-    new SimpleMDE({ element: field });
-  })
-</script>
 {% endblock %}

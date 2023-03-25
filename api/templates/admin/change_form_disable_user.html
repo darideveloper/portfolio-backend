@@ -1,0 +1,26 @@
+<script>
+  
+  // Disable user field
+  const user_group = "{{user_group}}"
+  const user_id = "{{user_id}}"
+  
+  if (user_group == "developer") {
+
+    // Select user field
+    const select = document.querySelector("#id_user")
+    const options = document.querySelectorAll("#id_user > option:not(:first-child)")
+    const user = Array.from(options).find(option => option.value == user_id)
+    user.selected = true
+
+    // Hide user field
+    const user_field_wrapper = document.querySelector(".field-user")
+    user_field_wrapper.classList.add("hide")
+  }
+
+</script>
+
+<style>
+  .hide {
+    display: none;
+  }
+</style>
