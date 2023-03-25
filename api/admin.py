@@ -27,7 +27,6 @@ def get_user_data (request) -> dict:
         user_projects = models.Project.objects.all()
     user_projects = [str(project.id) for project in user_projects]
     
-    
     return {
         "user_group": user_group,
         "user_id": user_id,
@@ -42,9 +41,9 @@ class Tag(admin.ModelAdmin):
 
 @admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image', 'redirect')
-    ordering = ('name', 'image', 'redirect')
-    search_fields = ('name', 'image')
+    list_display = ('name', 'image', 'redirect', 'user')
+    ordering = ('name', 'image', 'redirect', 'user')
+    search_fields = ('name', 'image', 'user__name')
     list_filter = ('user',)
     
     change_form_template = 'admin/change_form_contact.html' 
@@ -65,6 +64,21 @@ class ContactAdmin(admin.ModelAdmin):
         return super(ContactAdmin, self).add_view(
             request, form_url, extra_context=get_user_data(request),
         )
+    
+    # Only show contacts of the current developer
+    def get_queryset(self, request):
+        
+        # Get admin type
+        user_data = get_user_data(request)
+        user_group = user_data["user_group"]
+
+        if user_group == "developer":
+            
+            # Render only contacts of the current user
+            return models.Contact.objects.filter (user=request.user)
+            
+        # Render all contacts
+        return models.Contact.objects.all()   
 
 @admin.register(models.Tool)
 class ToolAdmin(admin.ModelAdmin):
@@ -97,6 +111,24 @@ class MediAdmin(admin.ModelAdmin):
         return super(MediAdmin, self).add_view(
             request, form_url, extra_context=get_user_data(request),
         ) 
+        
+    # Only show contacts of the current developer's projects
+    def get_queryset(self, request):
+        
+        # Get admin type
+        user_data = get_user_data(request)
+        user_group = user_data["user_group"]
+
+        if user_group == "developer":
+            
+            # Render only developer's projects media
+            user = request.user
+            projects = models.Project.objects.filter(user=user)
+            print (projects)
+            return models.Media.objects.filter(project__in=projects)
+            
+        # Render all projects media
+        return models.Media.objects.all()
     
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -125,3 +157,18 @@ class ProjectAdmin(admin.ModelAdmin):
         return super(ProjectAdmin, self).add_view(
             request, form_url, extra_context=get_user_data(request),
         )
+        
+    # Only show contacts of the current developer
+    def get_queryset(self, request):
+        
+        # Get admin type
+        user_data = get_user_data(request)
+        user_group = user_data["user_group"]
+
+        if user_group == "developer":
+            
+            # Render only projects of the current user
+            return models.Project.objects.filter (user=request.user)
+            
+        # Render all projects
+        return models.Project.objects.all()   
