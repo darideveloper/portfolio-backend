@@ -10,6 +10,7 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = models.Tag.objects.all().order_by('id')
     serializer_class = serializers.TagSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
     
 class ContactViewSet(viewsets.ModelViewSet):
     """
@@ -18,6 +19,7 @@ class ContactViewSet(viewsets.ModelViewSet):
     queryset = models.Contact.objects.all().order_by('id')
     serializer_class = serializers.ContactSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
 
 class ToolViewSet(viewsets.ModelViewSet):
     """
@@ -26,6 +28,7 @@ class ToolViewSet(viewsets.ModelViewSet):
     queryset = models.Tool.objects.all().order_by('id')
     serializer_class = serializers.ToolSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
     
 class MediaViewSet(viewsets.ModelViewSet):
     """
@@ -34,6 +37,7 @@ class MediaViewSet(viewsets.ModelViewSet):
     queryset = models.Media.objects.all().order_by('id')
     serializer_class = serializers.MediaSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
     
 class ProjectViewSet(viewsets.ModelViewSet):
     """
@@ -42,3 +46,4 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = models.Project.objects.all().order_by('last_update')
     serializer_class = serializers.ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
