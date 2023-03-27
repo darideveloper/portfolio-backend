@@ -6,7 +6,7 @@ class Tag (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, unique=True, help_text="tag name")
     image = models.URLField (max_length=200, help_text="link of the tag image", blank=True)
-    redirect = models.URLField (max_length=200, help_text="link where the tag redirects")
+    redirect = models.URLField (max_length=200, help_text="link where the tag redirects", blank=True)
     
     def __str__(self):
         return f"{self.name} ({self.redirect})"
