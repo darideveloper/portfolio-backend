@@ -47,6 +47,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_filter = ('user',)
     
     change_form_template = 'admin/change_form_contact.html' 
+    change_list_template = 'admin/change_list_render_images.html'
     
     # Disable user field for developers
     def change_view(self, request, object_id, form_url='', extra_context=None):

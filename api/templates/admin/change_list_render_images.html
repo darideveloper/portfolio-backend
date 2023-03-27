@@ -1,0 +1,23 @@
+{% extends 'admin/change_list.html' %}
+{% load static %}
+
+{% block footer %}
+{{ block.super }}
+
+<!-- Render images fields instead of show link -->
+<script>
+  // Sarch images cells
+  const selector_image_cell = "#result_list td.field-image"
+  const image_cells = document.querySelectorAll(selector_image_cell)
+
+  // Create images and replace links
+  image_cells.forEach (image_cell => {
+    const link = image_cell.textContent
+    const image_elem = document.createElement("img")
+    image_elem.src = link
+    image_cell.innerHTML = ""
+    image_cell.appendChild(image_elem)
+  })
+  </script>
+
+{% endblock %}
