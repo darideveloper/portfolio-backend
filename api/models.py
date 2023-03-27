@@ -9,7 +9,11 @@ class Tag (models.Model):
     redirect = models.URLField (max_length=200, help_text="link where the tag redirects", blank=True)
     
     def __str__(self):
-        return f"{self.name} ({self.redirect})"
+        if self.redirect:
+            return f"{self.name} ({self.redirect})"
+        else:
+            return f"{self.name}"
+            
 
 class Contact (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
@@ -19,7 +23,10 @@ class Contact (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='from user', null=True)
     
     def __str__(self):
-        return f"{self.name} ({self.redirect})"
+        if self.redirect:
+            return f"{self.name} ({self.redirect})"
+        else:
+            return f"{self.name}"
         
 class Tool (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
@@ -29,7 +36,10 @@ class Tool (models.Model):
     redirect = models.URLField (max_length=200, help_text="official page or docs of the tool", blank=True, null=True)
     
     def __str__(self):
-        return f"{self.name} ({self.version})"
+        if self.version:
+            return f"{self.name} ({self.version})"
+        else:
+            return f"{self.name}"
 
 class Media (models.Model):
     CHOICES = [
