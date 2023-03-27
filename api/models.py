@@ -5,7 +5,7 @@ from django.utils import timezone
 class Tag (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, unique=True, help_text="tag name")
-    image = models.URLField (max_length=200, help_text="link of the tag image")
+    image = models.URLField (max_length=200, help_text="link of the tag image", blank=True)
     redirect = models.URLField (max_length=200, help_text="link where the tag redirects")
     
     def __str__(self):
@@ -14,7 +14,7 @@ class Tag (models.Model):
 class Contact (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, unique=True, help_text="contact element name")
-    image = models.URLField (max_length=200, help_text="link of the contact element image")
+    image = models.URLField (max_length=200, help_text="link of the contact element image", blank=True)
     redirect = models.TextField (max_length=200, help_text="link where the contact element redirects")
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='from user', null=True)
     
