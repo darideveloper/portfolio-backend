@@ -1,0 +1,23 @@
+<script>
+    
+  // Get image url
+  const image_field = document.querySelector(".field-image > div")
+  const image_input = image_field.querySelector("input")
+  const image_link = image_input.value
+
+  // Render image
+  const image_elem = document.createElement("img")
+  image_elem.classList.add("image")
+  image_elem.src = image_link
+  image_field.appendChild(image_elem)
+
+</script>
+
+<style>
+  .image {
+    width: 100px;
+    height: auto;
+    margin: 10px 0;
+    margin-left: 170px;
+  }
+</style>
