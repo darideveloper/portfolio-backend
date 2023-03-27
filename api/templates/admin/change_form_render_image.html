@@ -1,7 +1,10 @@
 <script>
     
   // Get image url
-  const image_field = document.querySelector(".field-image > div")
+  let image_field = document.querySelector(".field-image > div")
+  if (!image_field) {
+    image_field = document.querySelector(".field-logo > div")
+  }
   const image_input = image_field.querySelector("input")
   const image_link = image_input.value
 

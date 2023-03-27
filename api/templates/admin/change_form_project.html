@@ -7,6 +7,7 @@
 
 <!-- Import code from other file -->
 {% include 'admin/change_form_disable_user.html' %}
+{% include 'admin/change_form_render_image.html' %}
 
 <script>
   // Create markdown components for text areas
@@ -15,4 +16,6 @@
     new SimpleMDE({ element: field });
   })
 </script>
+
+
 {% endblock %}
