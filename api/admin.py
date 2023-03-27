@@ -83,9 +83,12 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(models.Tool)
 class ToolAdmin(admin.ModelAdmin):
-    list_display = ('name', 'version', 'image')
-    ordering = ('name', 'version', 'image')
-    search_fields = ('name', 'version')
+    list_display = ('name', 'version', 'image', 'redirect')
+    ordering = ('name', 'version', 'image', 'redirect')
+    search_fields = ('name', 'version', 'redirect')
+    
+    change_list_template = 'admin/change_list_render_images.html'
+    change_form_template = 'admin/change_form_tool.html'
     
 @admin.register(models.Media)
 class MediAdmin(admin.ModelAdmin):

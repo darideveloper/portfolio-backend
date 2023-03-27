@@ -14,10 +14,17 @@
   image_cells.forEach (image_cell => {
     const link = image_cell.textContent
     const image_elem = document.createElement("img")
+    image_elem.classList.add("image")
     image_elem.src = link
     image_cell.innerHTML = ""
     image_cell.appendChild(image_elem)
   })
   </script>
+
+  <style>
+    .image {
+      max-height: 30px
+    }
+  </style>
 
 {% endblock %}

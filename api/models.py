@@ -26,6 +26,7 @@ class Tool (models.Model):
     name = models.CharField(max_length=50, unique=True, help_text="tool name")
     version = models.CharField(max_length=20, help_text="tool version (e.g. 1.2.5)", blank=True)
     image = models.URLField (max_length=200, null=True, help_text="link of the tool image")
+    redirect = models.URLField (max_length=200, help_text="official page or docs of the tool", blank=True, null=True)
     
     def __str__(self):
         return f"{self.name} ({self.version})"
