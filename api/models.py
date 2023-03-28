@@ -86,12 +86,7 @@ class Project (models.Model):
     roadmap = models.TextField(null=True, blank=True)
     
     def __str__(self):
-        if self.web_page:
-            return f"{self.name} ({self.web_page})"
-        elif self.repo:
-            return f"{self.name} ({self.repo})"
-        else:
-            return f"{self.name}"
+        return f"{self.name}"
     
 
     
