@@ -57,12 +57,12 @@ class Media (models.Model):
     ]
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=80, unique=True, help_text="media name")
-    link = models.URLField(max_length=200, help_text='link of the media source')
+    source = models.URLField(max_length=200, help_text='link of the media source')
     project = models.ForeignKey('Project', on_delete=models.CASCADE, help_text='from project')
     media_type = models.CharField(max_length=10, choices=CHOICES, default="image", help_text="media type")
     
     def __str__(self):
-        return f"{self.name} - {self.project} ({self.link})"
+        return f"{self.name} - {self.project}"
 
 class Project (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)

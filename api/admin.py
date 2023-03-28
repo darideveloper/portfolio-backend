@@ -92,11 +92,12 @@ class ToolAdmin(admin.ModelAdmin):
     
 @admin.register(models.Media)
 class MediAdmin(admin.ModelAdmin):
-    list_display = ('name', 'link', 'project', 'media_type')
-    ordering = ('name', 'link', 'project', 'media_type')
-    search_fields = ('name', 'link', 'project__name')
+    list_display = ('name', 'source', 'project', 'media_type')
+    ordering = ('name', 'source', 'project', 'media_type')
+    search_fields = ('name', 'source', 'project__name')
     list_filter = ('project', 'media_type')
     
+    change_list_template = 'admin/change_list_render_images.html'
     change_form_template = 'admin/change_form_media.html' 
     
     # Disable project field for developers
