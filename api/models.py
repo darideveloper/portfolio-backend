@@ -77,7 +77,7 @@ class Project (models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, help_text="project owner")
     tags = models.ManyToManyField(Tag, help_text="project tags")
     tools = models.ManyToManyField(Tool, help_text="project tools")
-    description = models.TextField()
+    description = models.TextField(default="")
     details = models.TextField(blank=True, null=True)
     install = models.TextField(null=True, blank=True)
     settings = models.TextField(null=True, blank=True)
@@ -85,7 +85,7 @@ class Project (models.Model):
     build = models.TextField(null=True, blank=True)
     test = models.TextField(null=True, blank=True)
     deploy = models.TextField(null=True, blank=True)
-    roadmap = models.TextField(null=True, blank=True)
+    roadmap = models.TextField(default="")
     
     def __str__(self):
         return f"{self.name}"
