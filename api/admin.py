@@ -35,9 +35,9 @@ def get_user_data (request) -> dict:
     
 @admin.register(models.Tag)
 class Tag(admin.ModelAdmin):
-    list_display = ('name', 'image', 'redirect')
-    ordering = ('name', 'image', 'redirect')
-    search_fields = ('name', 'image')    
+    list_display = ('name', 'details', 'image', 'redirect')
+    ordering = ('name', 'details', 'image', 'redirect')
+    search_fields = ('name', 'details', 'image')    
 
 @admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
