@@ -85,7 +85,7 @@ class Project (models.Model):
     build = models.TextField(null=True, blank=True)
     test = models.TextField(null=True, blank=True)
     deploy = models.TextField(null=True, blank=True)
-    roadmap = models.TextField(default="")
+    roadmap = models.TextField(null=True, blank=True)
     
     def __str__(self):
         return f"{self.name}"
