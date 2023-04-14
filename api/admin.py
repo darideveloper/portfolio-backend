@@ -137,12 +137,12 @@ class MediAdmin(admin.ModelAdmin):
     
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'user', 'start_date', 'last_update', 'logo', 'web_page', 'repo')
+    list_display = ('name', 'user', 'is_done', 'start_date', 'last_update', 'logo', 'web_page', 'repo')
     ordering = ('name', 'user', 'start_date', 'last_update', 'web_page', 'repo')
     search_fields = ('name', 'user__username', 'description', 'details', 'tools__name', 
                      'tools__version', 'tags__name', 'web_page', 'repo', 'install',
                      'run', 'build', 'test', 'deploy', 'roadmap')
-    list_filter = ('user__username', 'start_date', 'last_update', 'user', 'tags', 'tools')
+    list_filter = ('user__username', 'is_done', 'start_date', 'last_update', 'user', 'tags', 'tools')
     
     change_form_template = 'admin/change_form_project.html' 
     change_list_template = 'admin/change_list_render_images.html'
