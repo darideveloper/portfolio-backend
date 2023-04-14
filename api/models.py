@@ -66,11 +66,16 @@ class Media (models.Model):
         return f"{self.name} - {self.project}"
 
 class Project (models.Model):
+    CHOICES = [
+        ("personal", "personal"),
+        ("client", "client"),
+    ]
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=80, unique=True, help_text="project name")
     start_date = models.DateField(default=timezone.now, help_text="project start date")
     last_update = models.DateField(auto_now_add=True, help_text="project last update date")
     is_done = models.BooleanField(default=False, help_text="project is done")
+    project_type = models.CharField(max_length=10, choices=CHOICES, default="personal", help_text="project type")
     logo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project logo")
     web_page = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project web page")
     repo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project repository")
