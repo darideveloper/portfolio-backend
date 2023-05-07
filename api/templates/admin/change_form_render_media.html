@@ -1,0 +1,42 @@
+<script>
+    
+  // Get image url
+  const selector = ".field-image > div input, .field-logo > div input, .field-source > div input"
+  const input = document.querySelector(selector)
+  const link = input.value
+  const wrapper = input.parentNode
+
+  if (link.includes(".mp4")) {
+    // Render video iframe
+    const video_elem = document.createElement("video")
+    video_elem.classList.add("video")
+    video_elem.src = link
+    video_elem.controls = true
+    console.log (video_elem)
+    wrapper.appendChild(video_elem)
+  } else {
+    // Render image
+    const image_elem = document.createElement("img")
+    image_elem.classList.add("image")
+    image_elem.src = link
+    wrapper.appendChild(image_elem)
+  }
+
+
+</script>
+
+<style>
+  .image {
+    width: 200px;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+  }
+
+  .video {
+    width: 600px;
+    height: 335px;
+    margin: 10px 0;
+    display: block;
+  }
+</style>
