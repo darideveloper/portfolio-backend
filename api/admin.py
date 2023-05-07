@@ -145,11 +145,11 @@ class MediAdmin(admin.ModelAdmin):
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'user', 'is_done', 'start_date', 'last_update', 'logo', 'web_page', 
+        'name', 'user', 'is_done', 'start_date', 'last_update', 'logo', 'web_page',
         'repo'
     )
     ordering = (
-        'name', 'user', 'start_date', 'last_update', 'web_page', 'repo'
+        '-last_update', 'name', 'user', 'start_date', 'web_page', 'repo'
     )
     search_fields = (
         'name', 'user__username', 'description', 'details', 'tools__name',
