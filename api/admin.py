@@ -157,7 +157,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'run', 'build', 'test', 'deploy', 'roadmap'
     )
     list_filter = (
-        'user__username', 'is_done', 'project_type', 'project_type', 'start_date', 'last_update', 'user',
+        'user__username', 'is_done', 'project_type', 'start_date', 'last_update', 'user',
         'tags', 'tools'
     )
 
