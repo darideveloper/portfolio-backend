@@ -102,6 +102,7 @@ class MediAdmin(admin.ModelAdmin):
     ordering = ('name', 'source', 'project', 'media_type')
     search_fields = ('name', 'source', 'project__name')
     list_filter = ('project', 'media_type')
+    list_per_page = 20
 
     change_list_template = 'admin/change_list_render_images.html'
     change_form_template = 'admin/change_form_media.html'
