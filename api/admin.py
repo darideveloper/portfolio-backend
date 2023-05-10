@@ -99,7 +99,7 @@ class ToolAdmin(admin.ModelAdmin):
 @admin.register(models.Media)
 class MediAdmin(admin.ModelAdmin):
     list_display = ('name', 'source', 'project', 'media_type')
-    ordering = ('name', 'source', 'project', 'media_type')
+    ordering = ('-project__last_update', 'project__name', 'name', 'source', 'project', 'media_type')
     search_fields = ('name', 'source', 'project__name')
     list_filter = ('project', 'media_type')
     list_per_page = 20
