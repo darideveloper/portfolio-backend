@@ -41,6 +41,7 @@ class Tag(admin.ModelAdmin):
     list_display = ('name', 'details')
     ordering = ('name', 'details')
     search_fields = ('name', 'details')
+    list_per_page = 20
 
 
 @admin.register(models.Contact)
@@ -49,6 +50,7 @@ class ContactAdmin(admin.ModelAdmin):
     ordering = ('name', 'image', 'redirect', 'user')
     search_fields = ('name', 'image', 'user__name')
     list_filter = ('user',)
+    list_per_page = 20
 
     change_form_template = 'admin/change_form_contact.html'
     change_list_template = 'admin/change_list_render_images.html'
@@ -91,6 +93,7 @@ class ToolAdmin(admin.ModelAdmin):
     list_display = ('name', 'image', 'redirect')
     ordering = ('name', 'image', 'redirect')
     search_fields = ('name', 'redirect')
+    list_per_page = 20
 
     change_list_template = 'admin/change_list_render_images.html'
     change_form_template = 'admin/change_form_tool.html'
@@ -154,6 +157,7 @@ class ProjectAdmin(admin.ModelAdmin):
                      'run', 'build', 'test', 'deploy', 'roadmap')
     list_filter = ('user__username', 'is_done', 'project_type', 'start_date',
                    'last_update', 'user', 'tags', 'tools')
+    list_per_page = 20
 
     change_form_template = 'admin/change_form_project.html'
     change_list_template = 'admin/change_list_render_images.html'
