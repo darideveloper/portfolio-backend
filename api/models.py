@@ -27,17 +27,8 @@ class Contact (models.Model):
 class Tool (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, help_text="tool name")
-    image = models.URLField (max_length=200, null=True, help_text="link of the tool image")
+    image = models.URLField (max_length=200, null=True, help_text="link of the tool image", unique=True)
     redirect = models.URLField (max_length=200, help_text="official page or docs of the tool", blank=True, null=True)
-    
-    def save (self, *args, **kwargs):
-        """ Overwrite Save the model for validate unique name + version"""
-        
-        tool_found = Tool.objects.filter(name=self.name, version=self.version)
-        if tool_found.exists():
-            raise ValueError("Tool with same name and version already exists")
-        else:
-            super(Tool, self).save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name}"
