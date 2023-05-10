@@ -8,10 +8,7 @@ class Tag (models.Model):
     details = models.TextField (max_length=200, help_text="tag details", blank=True)
     
     def __str__(self):
-        if self.redirect:
-            return f"{self.name} ({self.redirect})"
-        else:
-            return f"{self.name}"
+        return f"{self.name}"
             
 
 class Contact (models.Model):
@@ -43,10 +40,7 @@ class Tool (models.Model):
             super(Tool, self).save(*args, **kwargs)
     
     def __str__(self):
-        if self.version:
-            return f"{self.name} ({self.version})"
-        else:
-            return f"{self.name}"
+        return f"{self.name}"
 
 class Media (models.Model):
     CHOICES = [
