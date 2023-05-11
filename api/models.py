@@ -65,6 +65,7 @@ class Project (models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, help_text="project owner")
     tags = models.ManyToManyField(Tag, help_text="project tags")
     tools = models.ManyToManyField(Tool, help_text="project tools")
+    related_projects = models.ManyToManyField('self', blank=True, help_text="related projects")
     description = models.TextField(default="")
     details = models.TextField(blank=True, null=True)
     install = models.TextField(null=True, blank=True)
