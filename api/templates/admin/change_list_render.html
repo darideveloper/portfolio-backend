@@ -6,6 +6,9 @@
 
 <!-- Render images fields instead of show link -->
 <script>
+
+  // RENDER MEDIA
+
   // Sarch images cells
   const selector_media_cell = "#result_list td.field-image, #result_list td.field-logo, #result_list td.field-image, #result_list td.field-source"
   const media_cells = document.querySelectorAll(selector_media_cell)
@@ -31,11 +34,34 @@
     media_cell.appendChild(media_elem)
   })
 
+  // RENDER LINKS
+
+  // Get links
+  const selectors = [".field-web_page", ".field-repo", ".field-redirect"]
+  const link_elems = document.querySelectorAll(selectors)
+  link_elems.forEach (link_elem => {
+
+    // Get link and limit length
+    let link = link_elem.textContent
+    if (link.length > 30) {
+      link = link.slice(0, 30) + "..."
+    }
+
+    // Create link and replace text
+    const a_elem = document.createElement("a")
+    a_elem.href = link
+    a_elem.textContent = link
+    a_elem.target = "_blank"
+    link_elem.innerHTML = ""
+    link_elem.appendChild(a_elem)
+  })
+
   </script>
 
   <style>
     .image, .video {
       max-width: 80px;
+      max-height: 30px;
     }
 
     #result_list td.field-image, #result_list td.field-logo {
