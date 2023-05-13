@@ -61,6 +61,7 @@ class Project (models.Model):
     logo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project logo")
     web_page = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project web page")
     repo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project repository")
+    board = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project manage board")
     license = models.CharField(max_length=20, default='MIT', help_text="project license name (e.g. MIT, GPL-3.0, etc.)")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, help_text="project owner")
     tags = models.ManyToManyField(Tag, help_text="project tags")
