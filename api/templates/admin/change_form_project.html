@@ -16,10 +16,35 @@
   })
 
   // Get markdown and html content
-  const copy_markdown = "{{copy_markdown}}"
-  const copy_html = "{{copy_html}}"
-  console.log ({copy_markdown, copy_html})
+  const markdown = `{{markdown}}`
+  
+  // Create copy html button
+  const button_wrapper = document.querySelector(".submit-row")
+  const button_str = '<input type="button" value="Copy Markdown" class="default" name="copy">'
+  button_wrapper.innerHTML += button_str
+  const button_elem = document.querySelector ('input[name="copy"]')
+  
+  // Add copy function to button
+  button_elem.addEventListener("click", () => {
+    // Copy markdown to clipboard
+    navigator.clipboard.writeText(unescape(markdown));
+
+    // Update button test
+    button_elem.value = "Copied!"
+
+    // Reset button text
+    setTimeout (() => {
+      button_elem.value = "Copy Markdown"
+    }, 2000)
+  });
+
 </script>
+
+<style>
+  input[name="copy"] {
+    width: 150px;
+  }
+</style>
 
 
 {% endblock %}

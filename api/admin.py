@@ -1,39 +1,6 @@
 from . import models
+from . import tools
 from django.contrib import admin
-from django.contrib.auth.models import Group, User
-
-
-def get_user_data(request) -> dict:
-    """ Get user data and return as dictionary
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): user request
-        id (bool, optional): True for return user id. Defaults to False.
-        group (bool, optional): True for return user group. Defaults to False.
-        projects (bool, optional): True for return user projects. Defaults to False.
-
-    Returns:
-        dict: user_id, user_group, user_projects
-    """
-
-    # Get user grup and id
-    user = request.user
-    user_group = Group.objects.get(
-        user=user).name if Group.objects.filter(user=user) else ""
-    user_id = user.id
-
-    # Filter projects if user is developer
-    if user_group == "developer":
-        user_projects = models.Project.objects.filter(user=user)
-    else:
-        user_projects = models.Project.objects.all()
-    user_projects = [str(project.id) for project in user_projects]
-
-    return {
-        "user_group": user_group,
-        "user_id": user_id,
-        "user_projects": user_projects
-    }
 
 
 @admin.register(models.Tag)
@@ -61,7 +28,7 @@ class ContactAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(ContactAdmin, self).change_view(
-            request, object_id, form_url, extra_context=get_user_data(request),
+            request, object_id, form_url, extra_context=tools.get_user_data(request),
         )
 
     def add_view(self, request, form_url='', extra_context=None):
@@ -69,14 +36,14 @@ class ContactAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(ContactAdmin, self).add_view(
-            request, form_url, extra_context=get_user_data(request),
+            request, form_url, extra_context=tools.get_user_data(request),
         )
 
     # Only show contacts of the current developer
     def get_queryset(self, request):
 
         # Get admin type
-        user_data = get_user_data(request)
+        user_data =tools.get_user_data(request)
         user_group = user_data["user_group"]
 
         if user_group == "developer":
@@ -116,7 +83,7 @@ class MediAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(MediAdmin, self).change_view(
-            request, object_id, form_url, extra_context=get_user_data(request),
+            request, object_id, form_url, extra_context=tools.get_user_data(request),
         )
 
     def add_view(self, request, form_url='', extra_context=None):
@@ -124,14 +91,14 @@ class MediAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(MediAdmin, self).add_view(
-            request, form_url, extra_context=get_user_data(request),
+            request, form_url, extra_context=tools.get_user_data(request),
         )
 
     # Only show contacts of the current developer's projects
     def get_queryset(self, request):
 
         # Get admin type
-        user_data = get_user_data(request)
+        user_data = tools.get_user_data(request)
         user_group = user_data["user_group"]
 
         if user_group == "developer":
@@ -169,8 +136,7 @@ class ProjectAdmin(admin.ModelAdmin):
         # Get user group of the user and submit to frontend
         return super(ProjectAdmin, self).change_view(
             request, object_id, form_url, extra_context={
-                "copy_markdown": "",
-                "copy_html": "",
+                "markdown": tools.get_markdown(object_id),
             },
         )
 
@@ -178,7 +144,7 @@ class ProjectAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
 
         # Get admin type
-        user_data = get_user_data(request)
+        user_data = tools.get_user_data(request)
         user_group = user_data["user_group"]
 
         if user_group == "developer":
