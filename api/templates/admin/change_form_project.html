@@ -6,8 +6,7 @@
 {{ block.super }}
 
 <!-- Import code from other file -->
-{% include 'admin/change_form_disable_user.html' %}
-{% include 'admin/change_form_render_media.html' %}
+{% include 'admin/components/render_media_form.html' %}
 
 <script>
   // Create markdown components for text areas
@@ -15,6 +14,11 @@
   fields.forEach(field => {
     new SimpleMDE({ element: field });
   })
+
+  // Get markdown and html content
+  const copy_markdown = "{{copy_markdown}}"
+  const copy_html = "{{copy_html}}"
+  console.log ({copy_markdown, copy_html})
 </script>
 
 

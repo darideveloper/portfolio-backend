@@ -53,7 +53,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_per_page = 20
 
     change_form_template = 'admin/change_form_contact.html'
-    change_list_template = 'admin/change_list_render.html'
+    change_list_template = 'admin/list_render_media.html'
 
     # Disable user field for developers
     def change_view(self, request, object_id, form_url='', extra_context=None):
@@ -95,7 +95,7 @@ class ToolAdmin(admin.ModelAdmin):
     search_fields = ('name', 'redirect')
     list_per_page = 20
 
-    change_list_template = 'admin/change_list_render.html'
+    change_list_template = 'admin/list_render_media.html'
     change_form_template = 'admin/change_form_tool.html'
 
 
@@ -107,7 +107,7 @@ class MediAdmin(admin.ModelAdmin):
     list_filter = ('project', 'media_type')
     list_per_page = 20
 
-    change_list_template = 'admin/change_list_render.html'
+    change_list_template = 'admin/list_render_media.html'
     change_form_template = 'admin/change_form_media.html'
 
     # Disable project field for developers
@@ -160,7 +160,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_per_page = 20
 
     change_form_template = 'admin/change_form_project.html'
-    change_list_template = 'admin/change_list_render.html'
+    change_list_template = 'admin/list_render_media.html'
 
     # Disable user field for developers
     def change_view(self, request, object_id, form_url='', extra_context=None):
@@ -168,15 +168,10 @@ class ProjectAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(ProjectAdmin, self).change_view(
-            request, object_id, form_url, extra_context=get_user_data(request),
-        )
-
-    def add_view(self, request, form_url='', extra_context=None):
-        """ deactive user field """
-
-        # Get user group of the user and submit to frontend
-        return super(ProjectAdmin, self).add_view(
-            request, form_url, extra_context=get_user_data(request),
+            request, object_id, form_url, extra_context={
+                "copy_markdown": "",
+                "copy_html": "",
+            },
         )
 
     # Only show contacts of the current developer
