@@ -104,7 +104,7 @@ class MarkdonGenerator ():
         markdown = ""
 
         # Create and filter menu items
-        menu_items = ["Build width", "Related Projects",
+        menu_items = ["Build with", "Related Projects",
                       "Media"] + self.markdown_text_fields
         if self.project.related_projects.count() == 0:
             menu_items.remove("Related Projects")
@@ -188,7 +188,7 @@ class MarkdonGenerator ():
         return markdown
 
     def __get_build_with__(self) -> str:
-        """ Return build width section in markdown format
+        """ Return build with section in markdown format
 
         Returns:
             str: markdown formatted data
