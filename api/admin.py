@@ -132,11 +132,13 @@ class ProjectAdmin(admin.ModelAdmin):
     # Disable user field for developers
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """ deactive user field """
+        
+        markdown_generator = tools.MarkdonGenerator(object_id)
 
         # Get user group of the user and submit to frontend
         return super(ProjectAdmin, self).change_view(
             request, object_id, form_url, extra_context={
-                "markdown": tools.get_markdown(object_id),
+                "markdown": markdown_generator.get_markdown(),
             },
         )
 

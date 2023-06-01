@@ -26,10 +26,23 @@
   
   // Add copy function to button
   button_elem.addEventListener("click", () => {
-    // Copy markdown to clipboard
-    navigator.clipboard.writeText(unescape(markdown));
+    
+    // Clean text
+    let clean_text = markdown
+    const chars = {
+      "&lt;": "<",
+      "&gt;": ">",
+      "&#x27;": "'",
+      "&amp;": "&",
+    }
+    for (char in chars) {
+      clean_text = clean_text.replaceAll(char, chars[char])
+    }
 
-    // Update button test
+    // Copy markdown to clipboard
+    navigator.clipboard.writeText(clean_text) 
+    
+    // Update button text
     button_elem.value = "Copied!"
 
     // Reset button text
