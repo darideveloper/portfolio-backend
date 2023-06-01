@@ -138,7 +138,11 @@ class MarkdonGenerator ():
 
             # Save each media
             for media in medias:
-                markdown += f"![{media.name}]({media.source})\n\n"
+                
+                if media.media_type == "image": 
+                    markdown += f"![{media.name}]({media.source})\n\n"
+                else:
+                    markdown += f"[{media.name}]({media.source})\n\n"
 
         return markdown
 
