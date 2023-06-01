@@ -41,8 +41,8 @@ class MarkdonGenerator ():
         markdown = "<div>"
 
         # Add license shell
-        repo_name = self.project.repo.split("/")[-1]
-        repo_user = self.project.repo.split("/")[-2]
+        repo_name = self.project.repo.split("/")[-2]
+        repo_user = self.project.repo.split("/")[-3]
         user = self.project.user
         markdown += f"""<a href='https://github.com/{repo_user}/{repo_name}/blob/master/LICENSE' target='_blank'>
             <img src='https://img.shields.io/github/license/{repo_user}/{repo_name}.svg?style=for-the-badge' alt='MIT License' height='30px'/>
