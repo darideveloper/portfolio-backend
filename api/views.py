@@ -1,7 +1,11 @@
-from . import models, serializers
+import json
+from . import models, serializers, tools
 from rest_framework import viewsets
+from rest_framework import views
 from rest_framework import permissions
-from django.contrib.auth.models import Group
+from rest_framework import response
+from rest_framework.decorators import permission_classes
+
 
 class TagViewSet(viewsets.ModelViewSet):
     """
@@ -47,3 +51,28 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
+
+@permission_classes((permissions.AllowAny,))
+class ProjectMarkdown(views.APIView):
+    """
+    API endpoint to get project data in markdown format
+    """
+    
+    def get(self, request, format=None):
+        
+        # Get repo url from request
+        repo = request.GET.get("repo")
+        if not repo:
+            return response.Response("No repo url provided")
+        
+        # Get project
+        project = models.Project.objects.get(repo=repo)
+        if not project:
+            return response.Response("Project not found")
+        
+        # Get markdown
+        markdown_generator = tools.MarkdonGenerator(project.id)
+        markdown = markdown_generator.get_markdown()
+                        
+        return response.Response(markdown)
+    
