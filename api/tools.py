@@ -77,7 +77,10 @@ class MarkdonGenerator ():
 
         # Web page
         if self.project.web_page:
-            markdown += f"Visit at: **[{self.project.web_page}]({self.project.web_page})**\n\n"
+            clean_link = self.project.web_page.replace("http://", "").replace("https://", "").replace("www.", "")
+            if clean_link[-1] == "/":
+                clean_link = clean_link[:-1]
+            markdown += f"Visit at: **[{clean_link}]({self.project.web_page})**\n\n"
 
         # Description
         markdown += f"{self.project.description}\n\n"
