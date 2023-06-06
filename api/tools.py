@@ -39,16 +39,21 @@ class MarkdonGenerator ():
         """
 
         markdown = "<div>"
-
+        
+        # Fix repo name
+        repo = self.project.repo.strip()
+        if not repo.endswith("/"):
+            repo += "/"
+            
         # Add license shell
-        repo_name = self.project.repo.split("/")[-2]
-        repo_user = self.project.repo.split("/")[-3]
-        user = self.project.user
+        repo_name = repo.split("/")[-2]
+        repo_user = repo.split("/")[-3]
         markdown += f"""<a href='https://github.com/{repo_user}/{repo_name}/blob/master/LICENSE' target='_blank'>
             <img src='https://img.shields.io/github/license/{repo_user}/{repo_name}.svg?style=for-the-badge' alt='MIT License' height='30px'/>
         </a>"""
 
         # Add contact shells
+        user = self.project.user
         contacts = models.Contact.objects.filter(user=user)
         for contact in contacts:
             markdown += f"""<a href='{contact.redirect}' target='_blank'>
