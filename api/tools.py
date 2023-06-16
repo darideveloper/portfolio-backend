@@ -91,7 +91,6 @@ class MarkdonGenerator ():
         markdown += f"{self.project.description}\n\n"
 
         # General data
-        markdown += f"Last update: **{self.project.last_update}**\n\n"
         markdown += f"Project type: **{self.project.project_type}**\n\n"
 
         markdown += "</div>"
