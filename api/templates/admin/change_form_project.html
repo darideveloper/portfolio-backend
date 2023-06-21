@@ -9,48 +9,98 @@
 {% include 'admin/components/render_media_form.html' %}
 
 <script>
-  // Create markdown components for text areas
-  let fields = document.querySelectorAll("textarea")
-  fields.forEach(field => {
-    new SimpleMDE({ element: field });
-  })
 
-  // Get markdown and html content
+  // Get data from django
   const markdown = `{{markdown}}`
+  const tags_tools = `{{tags_tools}}`.replaceAll (",", '')
   
-  // Create copy html button
-  const button_wrapper = document.querySelector(".submit-row")
-  const button_str = '<input type="button" value="Copy Markdown" class="default" name="copy">'
-  button_wrapper.innerHTML += button_str
-  const button_elem = document.querySelector ('input[name="copy"]')
-  
-  // Add copy function to button
-  button_elem.addEventListener("click", () => {
-    
-    // Clean text
-    let clean_text = markdown
-    const chars = {
-      "&lt;": "<",
-      "&gt;": ">",
-      "&#x27;": "'",
-      "&amp;": "&",
-      "&quot;": '"',
-    }
-    for (char in chars) {
-      clean_text = clean_text.replaceAll(char, chars[char])
-    }
+  // Function to copy text to clipboard and animate button
+  function copy_text (button_elem, text) {
+
+    // Get original text from button
+    const button_text = button_elem.value
 
     // Copy markdown to clipboard
-    navigator.clipboard.writeText(clean_text) 
+    navigator.clipboard.writeText(text) 
     
     // Update button text
     button_elem.value = "Copied!"
 
     // Reset button text
     setTimeout (() => {
-      button_elem.value = "Copy Markdown"
+      button_elem.value = button_text
     }, 2000)
-  });
+
+  }
+
+  function render_button (selector_wrapper, value, on_click) {
+
+    // Create and place button
+    const button_wrapper = document.querySelector(selector_wrapper)
+    const button = document.createElement("input")
+    const button_name = value.toLowerCase().replaceAll(" ", "-")
+    button.type = "button"
+    button.value = value
+    button.className = "default"
+    button.name = button_name
+    button_wrapper.appendChild (button)
+
+    // Add event listener to button
+    button.addEventListener("click", on_click)
+  }
+
+  // Create markdown components for text areas
+  let fields = document.querySelectorAll("textarea")
+  fields.forEach(field => {
+    new SimpleMDE({ element: field });
+  })
+
+  
+  // Create copy tags & tools buttonn
+  render_button (
+    ".submit-row", 
+    "Copy Tags & Tools",
+    (event) => {
+      copy_text (event.target, tags_tools)   
+    }
+  )
+    
+  // Create copy markdown button
+  render_button (
+    ".submit-row", 
+    "Copy Markdown",
+    (event) => {
+      // Clean text
+      let clean_text = markdown
+      const chars = {
+        "&lt;": "<",
+        "&gt;": ">",
+        "&#x27;": "'",
+        "&amp;": "&",
+        "&quot;": '"',
+      }
+      for (char in chars) {
+        clean_text = clean_text.replaceAll(char, chars[char])
+      }
+
+      copy_text (event.target, clean_text)   
+    }
+  )
+
+  
+  // // Add copy function to button
+  // button_elem_md.addEventListener("click", );
+
+  // // Create copy tags_tools button
+  // const button_wrapper_tags = document.querySelector(".form-row field-tools")
+  // button_str_tags = '<input type="button" value="Copy Tags & Tools" class="default" name="copy-tags-tools">'
+  // button_wrapper_tags.innerHTML += button_str_tags
+  // button_elem_tags = document.querySelector ('input[name="copy-tags-tools"]')
+
+  // button_elem_tags.addEventListener ("click", () => {
+  //   copy_text (button_elem_tags, tags_tools)
+  // })
+  
 
 </script>
 

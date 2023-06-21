@@ -133,12 +133,14 @@ class ProjectAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """ deactive user field """
         
-        markdown_generator = tools.MarkdonGenerator(object_id)
+        markdown_generator = tools.MarkdownGenerator(object_id)
+        tags_tools = tools.get_tags_tools(object_id)
 
         # Get user group of the user and submit to frontend
         return super(ProjectAdmin, self).change_view(
             request, object_id, form_url, extra_context={
                 "markdown": markdown_generator.get_markdown(),
+                "tags_tools": tags_tools
             },
         )
 

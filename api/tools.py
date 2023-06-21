@@ -2,7 +2,7 @@ from . import models
 from django.contrib.auth.models import Group, User
 
 
-class MarkdonGenerator ():
+class MarkdownGenerator ():
 
     def __init__(self, project_id: int):
         """ Generate markdown file from project instance
@@ -268,3 +268,27 @@ def get_user_data(request) -> dict:
         "user_id": user_id,
         "user_projects": user_projects
     }
+
+def get_tags_tools (project_id:int) -> list: 
+    """ Return list of tags and tools, as text 
+    
+    Args:
+        project_id (int): project id
+        
+    Returns:
+        list: list of tags and tools, as text    
+    """
+    
+    project = models.Project.objects.get(id=project_id)
+    
+    tags_tools = []
+    tags = models.Tag.objects.filter(project=project)
+    tools = models.Tool.objects.filter(project=project)
+    
+    for tag in tags:
+        tags_tools.append(tag.name.replace(" ", "-"))
+        
+    for tool in tools:
+        tags_tools.append(tool.name.replace(" ", "-"))
+        
+    return ", ".join(tags_tools)

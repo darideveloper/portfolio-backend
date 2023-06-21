@@ -71,7 +71,7 @@ class ProjectMarkdown(views.APIView):
             return response.Response("Project not found")
         
         # Get markdown
-        markdown_generator = tools.MarkdonGenerator(project.id)
+        markdown_generator = tools.MarkdownGenerator(project.id)
         markdown = markdown_generator.get_markdown()
                         
         return response.Response(markdown)
