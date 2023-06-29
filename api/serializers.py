@@ -19,6 +19,7 @@ class ContactSerializer (serializers.HyperlinkedModelSerializer):
             'id', 
             'name', 
             'image', 
+            'svg',
             'redirect', 
         ]
 
