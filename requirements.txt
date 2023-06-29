@@ -8,3 +8,4 @@ dj-database-url==1.2.0
 djangorestframework==3.14.0
 Markdown==3.4.1
 django-filter==22.1
+django-cors-headers==4.1.0

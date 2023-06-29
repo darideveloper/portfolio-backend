@@ -279,6 +279,26 @@ def get_tags_tools (project_id:int) -> list:
         list: list of tags and tools, as text    
     """
     
+    def clen_name (text:str) -> str:
+        """ Clean tool or tag name
+
+        Args:
+            text (str): original text
+
+        Returns:
+            str: text cleaned of whitespaces and special characters
+        """
+        
+        chars = {
+            " + ": " ",
+            " ": "-",
+        }
+        for old_char, new_char in chars.items():
+            text = text.replace(old_char, new_char)
+        
+        return text
+        
+    
     project = models.Project.objects.get(id=project_id)
     
     tags_tools = []
@@ -286,9 +306,9 @@ def get_tags_tools (project_id:int) -> list:
     tools = models.Tool.objects.filter(project=project)
     
     for tag in tags:
-        tags_tools.append(tag.name.replace(" ", "-"))
+        tags_tools.append(clen_name(tag.name))
         
     for tool in tools:
-        tags_tools.append(tool.name.replace(" ", "-"))
+        tags_tools.append(clen_name(tool.name))
         
     return ", ".join(tags_tools)
