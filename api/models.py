@@ -13,7 +13,7 @@ class Tag (models.Model):
 
 class Contact (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
-    name = models.CharField(max_length=50, unique=True, help_text="contact element name")
+    name = models.CharField(max_length=50, help_text="contact element name")
     image = models.URLField (max_length=200, help_text="link of the contact element image", blank=True)
     svg = models.URLField (max_length=200, help_text="link of the contact element image (in svg format)", blank=True)
     redirect = models.TextField (max_length=200, help_text="link where the contact element redirects")
