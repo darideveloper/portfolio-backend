@@ -99,12 +99,12 @@ class Project (models.Model):
     
     def save (self, *args, **kwargs):
         """ No duplicated project name for user """
-        duplicated_contact = Contact.objects.filter(name=self.name, user=self.user)
+        duplicated_contact = Project.objects.filter(name=self.name, user=self.user)
         if duplicated_contact:
-            raise Exception("Contact name must be unique for user")
+            raise Exception("Project name must be unique for user")
         else:
             self.name = self.name.title()
-            super(Contact, self).save(*args, **kwargs)
+            super(Project, self).save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name}"

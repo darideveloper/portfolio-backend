@@ -136,7 +136,7 @@ class ProjectAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """ deactive user field """
         
-        if type(object_id) == int:
+        if object_id.isdigit():
             markdown_generator = tools.MarkdownGenerator(object_id)
             tags_tools = tools.get_tags_tools(object_id)
 
