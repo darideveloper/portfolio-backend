@@ -11,7 +11,7 @@ class TagViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Tags to be viewed or edited.
     """
-    queryset = models.Tag.objects.all().order_by('id')
+    queryset = models.Tag.objects.all().order_by('name')
     serializer_class = serializers.TagSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
@@ -20,16 +20,22 @@ class ContactViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows contacts to be viewed or edited.
     """
-    queryset = models.Contact.objects.all().order_by('id')
+    # queryset = models.Contact.objects.all().order_by('id')
+    queryset = models.Contact.objects.all().order_by('name')
     serializer_class = serializers.ContactSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        user = self.request.user
+        return queryset.filter(user=user.id)
 
 class ToolViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows tools to be viewed or edited.
     """
-    queryset = models.Tool.objects.all().order_by('id')
+    queryset = models.Tool.objects.all().order_by('name')
     serializer_class = serializers.ToolSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
@@ -38,19 +44,30 @@ class MediaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows media to be viewed or edited.
     """
-    queryset = models.Media.objects.all().order_by('id')
+    queryset = models.Media.objects.all().order_by('-id')
     serializer_class = serializers.MediaSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        user = self.request.user
+        projects = models.Project.objects.filter(user=user.id)
+        return queryset.filter(project__in=projects)
     
 class ProjectViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows projects to be viewed or edited.
     """
-    queryset = models.Project.objects.all().order_by('last_update')
+    queryset = models.Project.objects.all().order_by('-last_update')
     serializer_class = serializers.ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        user = self.request.user
+        return queryset.filter(user=user.id)
 
 @permission_classes((permissions.AllowAny,))
 class ProjectMarkdown(views.APIView):
