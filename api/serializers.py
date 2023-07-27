@@ -8,8 +8,7 @@ class TagSerializer (serializers.HyperlinkedModelSerializer):
         fields = [
             'id', 
             'name', 
-            'image', 
-            'redirect'
+            'details'
         ]
 
 class ContactSerializer (serializers.HyperlinkedModelSerializer):
@@ -29,7 +28,6 @@ class ToolSerializer (serializers.HyperlinkedModelSerializer):
         fields = [
             'id', 
             'name', 
-            'version', 
             'image'
         ]
         
@@ -39,7 +37,7 @@ class MediaSerializer (serializers.HyperlinkedModelSerializer):
         fields = [
             'id', 
             'name', 
-            'link', 
+            'source', 
             'project', 
             'media_type'
         ]
