@@ -162,9 +162,15 @@ class ProjectAdmin(admin.ModelAdmin):
         # Limit users to the regular bot cheers managers
         is_admin = get_is_admin (request)
         if not is_admin:
+            
+            # Force current user
             form.base_fields["user"].initial  = request.user.id
             form.base_fields["user"].disabled = True
             form.base_fields["user"].widget = forms.HiddenInput()
+            
+            # Only show user projects
+            user_projects = models.Project.objects.filter(user=request.user).order_by("name")
+            form.base_fields["related_projects"].queryset = user_projects
             
         return form
 
