@@ -1,3 +1,4 @@
+from typing import Iterable, Optional
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -6,10 +7,14 @@ class Tag (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, unique=True, help_text="tag name")
     details = models.TextField (max_length=200, help_text="tag details", blank=True)
+        
+    def save (self, *args, **kwargs):
+        """ Name to title case """
+        self.name = self.name.title()
+        super(Tag, self).save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name}"
-            
 
 class Contact (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
@@ -24,12 +29,26 @@ class Contact (models.Model):
             return f"{self.name} ({self.redirect})"
         else:
             return f"{self.name}"
+
+    def save (self, *args, **kwargs):
+        """ No duplicated contact name for user """
+        duplicated_contact = Contact.objects.filter(name=self.name, user=self.user)
+        if duplicated_contact:
+            raise Exception("Contact name must be unique for user")
+        else:
+            self.name = self.name.title()
+            super(Contact, self).save(*args, **kwargs)
         
 class Tool (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
-    name = models.CharField(max_length=50, help_text="tool name")
+    name = models.CharField(max_length=50, help_text="tool name", unique=True)
     image = models.URLField (max_length=200, null=True, help_text="link of the tool image", unique=True)
     redirect = models.URLField (max_length=200, help_text="official page or docs of the tool", blank=True, null=True)
+    
+    def save (self, *args, **kwargs):
+        """ Name to title case """
+        self.name = self.name.title()
+        super(Tag, self).save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name}"
@@ -54,7 +73,7 @@ class Project (models.Model):
         ("client", "client"),
     ]
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
-    name = models.CharField(max_length=80, unique=True, help_text="project name")
+    name = models.CharField(max_length=80, help_text="project name")
     start_date = models.DateField(default=timezone.now, help_text="project start date")
     last_update = models.DateField(auto_now_add=True, help_text="project last update date")
     is_done = models.BooleanField(default=False, help_text="project is done")
@@ -77,6 +96,15 @@ class Project (models.Model):
     test = models.TextField(null=True, blank=True)
     deploy = models.TextField(null=True, blank=True)
     roadmap = models.TextField(null=True, blank=True)
+    
+    def save (self, *args, **kwargs):
+        """ No duplicated project name for user """
+        duplicated_contact = Contact.objects.filter(name=self.name, user=self.user)
+        if duplicated_contact:
+            raise Exception("Contact name must be unique for user")
+        else:
+            self.name = self.name.title()
+            super(Contact, self).save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name}"
