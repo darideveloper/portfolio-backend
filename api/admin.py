@@ -1,6 +1,7 @@
 from . import models
 from . import tools
 from django.contrib import admin
+from api.admin_filters import FilterUser, FilterProjectUser
 
 
 @admin.register(models.Tag)
@@ -16,7 +17,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'image', 'redirect', 'user')
     ordering = ('name', 'image', 'redirect', 'user')
     search_fields = ('name', 'image', 'user__name')
-    list_filter = ('user',)
+    list_filter = [FilterUser]
     list_per_page = 20
 
     change_form_template = 'admin/change_form_contact.html'
@@ -28,7 +29,8 @@ class ContactAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(ContactAdmin, self).change_view(
-            request, object_id, form_url, extra_context=tools.get_user_data(request),
+            request, object_id, form_url, extra_context=tools.get_user_data(
+                request),
         )
 
     def add_view(self, request, form_url='', extra_context=None):
@@ -43,7 +45,7 @@ class ContactAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
 
         # Get admin type
-        user_data =tools.get_user_data(request)
+        user_data = tools.get_user_data(request)
         user_group = user_data["user_group"]
 
         if user_group == "developer":
@@ -69,9 +71,10 @@ class ToolAdmin(admin.ModelAdmin):
 @admin.register(models.Media)
 class MediAdmin(admin.ModelAdmin):
     list_display = ('name', 'source', 'project', 'media_type')
-    ordering = ('-project__last_update', 'project__name', 'name', 'source', 'project', 'media_type')
+    ordering = ('-project__last_update', 'project__name',
+                'name', 'source', 'project', 'media_type')
     search_fields = ('name', 'source', 'project__name')
-    list_filter = ('project', 'media_type')
+    list_filter = ('media_type', FilterProjectUser)
     list_per_page = 20
 
     change_list_template = 'admin/list_render_media.html'
@@ -83,7 +86,8 @@ class MediAdmin(admin.ModelAdmin):
 
         # Get user group of the user and submit to frontend
         return super(MediAdmin, self).change_view(
-            request, object_id, form_url, extra_context=tools.get_user_data(request),
+            request, object_id, form_url, extra_context=tools.get_user_data(
+                request),
         )
 
     def add_view(self, request, form_url='', extra_context=None):
@@ -106,7 +110,6 @@ class MediAdmin(admin.ModelAdmin):
             # Render only developer's projects media
             user = request.user
             projects = models.Project.objects.filter(user=user)
-            print(projects)
             return models.Media.objects.filter(project__in=projects)
 
         # Render all projects media
@@ -122,8 +125,8 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('name', 'user__username', 'board', 'description', 'details', 'tools__name',
                      'tags__name', 'web_page', 'repo', 'install',
                      'run', 'build', 'test', 'deploy', 'roadmap')
-    list_filter = ('user__username', 'is_done', 'project_type', 'start_date',
-                   'last_update', 'user', 'tags', 'tools')
+    list_filter = ('is_done', 'project_type', 'start_date',
+                   'last_update', FilterUser, 'tags', 'tools')
     list_per_page = 20
 
     change_form_template = 'admin/change_form_project.html'
@@ -133,16 +136,21 @@ class ProjectAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         """ deactive user field """
         
-        markdown_generator = tools.MarkdownGenerator(object_id)
-        tags_tools = tools.get_tags_tools(object_id)
+        if type(object_id) == int:
+            markdown_generator = tools.MarkdownGenerator(object_id)
+            tags_tools = tools.get_tags_tools(object_id)
 
-        # Get user group of the user and submit to frontend
-        return super(ProjectAdmin, self).change_view(
-            request, object_id, form_url, extra_context={
-                "markdown": markdown_generator.get_markdown(),
-                "tags_tools": tags_tools
-            },
-        )
+            # Get user group of the user and submit to frontend
+            return super(ProjectAdmin, self).change_view(
+                request, object_id, form_url, extra_context={
+                    "markdown": markdown_generator.get_markdown(),
+                    "tags_tools": tags_tools
+                },
+            )
+        else:
+            return super(ProjectAdmin, self).change_view(
+                request, object_id, form_url,
+            )
 
     # Only show contacts of the current developer
     def get_queryset(self, request):

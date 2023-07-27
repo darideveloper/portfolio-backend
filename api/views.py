@@ -6,7 +6,6 @@ from rest_framework import permissions
 from rest_framework import response
 from rest_framework.decorators import permission_classes
 
-
 class TagViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Tags to be viewed or edited.

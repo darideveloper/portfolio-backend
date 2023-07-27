@@ -10,8 +10,7 @@ class MarkdownGenerator ():
         Args:
             project_id (int): project id
         """
-
-        # Get project instance
+        
         self.project = models.Project.objects.get(id=project_id)
 
         # Filter markdown text fields
@@ -39,14 +38,14 @@ class MarkdownGenerator ():
         """
 
         markdown = "<div>"
-        
+
         # Fix repo name
         repo = self.project.repo
         if repo:
             repo = repo.strip()
             if not repo.endswith("/"):
                 repo += "/"
-            
+
             # Add license shell
             repo_name = repo.split("/")[-2]
             repo_user = repo.split("/")[-3]
@@ -84,7 +83,8 @@ class MarkdownGenerator ():
 
         # Web page
         if self.project.web_page:
-            clean_link = self.project.web_page.replace("http://", "").replace("https://", "").replace("www.", "")
+            clean_link = self.project.web_page.replace(
+                "http://", "").replace("https://", "").replace("www.", "")
             if clean_link[-1] == "/":
                 clean_link = clean_link[:-1]
             markdown += f"Visit at: **[{clean_link}]({self.project.web_page})**\n\n"
@@ -143,8 +143,8 @@ class MarkdownGenerator ():
 
             # Save each media
             for media in medias:
-                
-                if media.media_type == "image": 
+
+                if media.media_type == "image":
                     markdown += f"![{media.name}]({media.source})\n\n"
                 else:
                     markdown += f"[{media.name}]({media.source})\n\n"
@@ -224,17 +224,19 @@ class MarkdownGenerator ():
         """
 
         markdown = ""
-        markdown += f"{self.__get_contacts__()}"
-        markdown += f"{self.__get_header__()}"
-        markdown += f"{self.__get_menu__()}"
-        markdown += f"{self.__get_build_with__()}"
-        markdown += f"{self.__get_related_projects__()}"
-        markdown += f"{self.__get_medias__()}"
-        markdown += f"{self.__get_text_fields__()}"
+        if self.project:
 
-        # Scape quotes
-        markdown = markdown.replace('"', '\\"').replace(
-            "'", "\\'").replace("`", "\\`")
+            markdown += f"{self.__get_contacts__()}"
+            markdown += f"{self.__get_header__()}"
+            markdown += f"{self.__get_menu__()}"
+            markdown += f"{self.__get_build_with__()}"
+            markdown += f"{self.__get_related_projects__()}"
+            markdown += f"{self.__get_medias__()}"
+            markdown += f"{self.__get_text_fields__()}"
+
+            # Scape quotes
+            markdown = markdown.replace('"', '\\"').replace(
+                "'", "\\'").replace("`", "\\`")
 
         return markdown
 
@@ -271,17 +273,18 @@ def get_user_data(request) -> dict:
         "user_projects": user_projects
     }
 
-def get_tags_tools (project_id:int) -> list: 
+
+def get_tags_tools(project_id: int) -> list:
     """ Return list of tags and tools, as text 
-    
+
     Args:
         project_id (int): project id
-        
+
     Returns:
         list: list of tags and tools, as text    
     """
-    
-    def clen_name (text:str) -> str:
+
+    def clen_name(text: str) -> str:
         """ Clean tool or tag name
 
         Args:
@@ -290,27 +293,26 @@ def get_tags_tools (project_id:int) -> list:
         Returns:
             str: text cleaned of whitespaces and special characters
         """
-        
+
         chars = {
             " + ": " ",
             " ": "-",
         }
         for old_char, new_char in chars.items():
             text = text.replace(old_char, new_char)
-        
+
         return text
-        
-    
+
     project = models.Project.objects.get(id=project_id)
-    
+
     tags_tools = []
     tags = models.Tag.objects.filter(project=project)
     tools = models.Tool.objects.filter(project=project)
-    
+
     for tag in tags:
         tags_tools.append(clen_name(tag.name))
-        
+
     for tool in tools:
         tags_tools.append(clen_name(tool.name))
-        
+
     return ", ".join(tags_tools)
