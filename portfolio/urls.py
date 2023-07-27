@@ -15,7 +15,7 @@ router = routers.DefaultRouter()
 router.register (r'tags', views.TagViewSet)
 router.register (r'contacts', views.ContactViewSet)
 router.register (r'tools', views.ToolViewSet)
-router.register (r'media', views.MediaViewSet)
+router.register (r'medias', views.MediaViewSet)
 router.register (r'projects', views.ProjectViewSet)
 
 urlpatterns = [
