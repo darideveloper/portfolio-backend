@@ -1,7 +1,8 @@
 from . import models
 from . import tools
+from django import forms
 from django.contrib import admin
-from api.admin_filters import FilterUser, FilterProjectUser
+from api.admin_filters import FilterUser, FilterProjectUser, get_is_admin
 
 
 @admin.register(models.Tag)
@@ -151,6 +152,21 @@ class ProjectAdmin(admin.ModelAdmin):
             return super(ProjectAdmin, self).change_view(
                 request, object_id, form_url,
             )
+            
+    def get_form (self, request, object, **kwargs):
+        """ Filter query set of 'user' field """
+        
+        # Get form
+        form = super(ProjectAdmin, self).get_form(request, object, **kwargs)
+        
+        # Limit users to the regular bot cheers managers
+        is_admin = get_is_admin (request)
+        if not is_admin:
+            form.base_fields["user"].initial  = request.user.id
+            form.base_fields["user"].disabled = True
+            form.base_fields["user"].widget = forms.HiddenInput()
+            
+        return form
 
     # Only show contacts of the current developer
     def get_queryset(self, request):
