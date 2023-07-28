@@ -32,8 +32,9 @@ class Contact (models.Model):
 
     def save (self, *args, **kwargs):
         """ No duplicated contact name for user """
-        duplicated_contact = Contact.objects.filter(name=self.name, user=self.user)
-        if duplicated_contact:
+        
+        duplicated = Contact.objects.filter(name=self.name, user=self.user).count() > 1
+        if duplicated:
             raise Exception("Contact name must be unique for user")
         else:
             self.name = self.name.title()
@@ -99,8 +100,8 @@ class Project (models.Model):
     
     def save (self, *args, **kwargs):
         """ No duplicated project name for user """
-        duplicated_contact = Project.objects.filter(name=self.name, user=self.user)
-        if duplicated_contact:
+        duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
+        if duplicated:
             raise Exception("Project name must be unique for user")
         else:
             self.name = self.name.title()
