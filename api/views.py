@@ -1,10 +1,11 @@
-import json
 from . import models, serializers, tools
 from rest_framework import viewsets
 from rest_framework import views
 from rest_framework import permissions
-from rest_framework import response
+from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
+from rest_framework import status
+
 
 class TagViewSet(viewsets.ModelViewSet):
     """
@@ -77,18 +78,30 @@ class ProjectMarkdown(views.APIView):
     def get(self, request, format=None):
         
         # Get repo url from request
-        repo = request.GET.get("repo")
-        if not repo:
-            return response.Response("No repo url provided")
+        project_id = request.GET.get("id")
+        if not project_id:
+            return Response({
+                "status": "error",
+                "message": "No id url provided",
+                "data": ""
+            }, status=status.HTTP_400_BAD_REQUEST)
         
         # Get project
-        project = models.Project.objects.get(repo=repo)
+        project = models.Project.objects.filter(id=project_id)
         if not project:
-            return response.Response("Project not found")
+            return Response({
+                "status": "error",
+                "message": "project not found",
+                "data": ""
+            }, status=status.HTTP_404_NOT_FOUND)
         
         # Get markdown
-        markdown_generator = tools.MarkdownGenerator(project.id)
+        markdown_generator = tools.MarkdownGenerator(project_id)
         markdown = markdown_generator.get_markdown()
                         
-        return response.Response(markdown)
+        return Response({
+            "status": "ok",
+            "message": "markdown generated",
+            "data": markdown
+        })
     
