@@ -19,8 +19,8 @@ class Tag (models.Model):
 class Contact (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, help_text="contact element name")
-    image = models.URLField (max_length=200, help_text="link of the contact element image", blank=True)
-    svg = models.URLField (max_length=200, help_text="link of the contact element image (in svg format)", blank=True)
+    image = models.URLField (max_length=600, help_text="link of the contact element image", blank=True)
+    svg = models.URLField (max_length=600, help_text="link of the contact element image (in svg format)", blank=True)
     redirect = models.TextField (max_length=200, help_text="link where the contact element redirects")
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='from user', null=True)
     
@@ -43,8 +43,8 @@ class Contact (models.Model):
 class Tool (models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=50, help_text="tool name", unique=True)
-    image = models.URLField (max_length=200, null=True, help_text="link of the tool image", unique=True)
-    redirect = models.URLField (max_length=200, help_text="official page or docs of the tool", blank=True, null=True)
+    image = models.URLField (max_length=600, null=True, help_text="link of the tool image", unique=True)
+    redirect = models.URLField (max_length=600, help_text="official page or docs of the tool", blank=True, null=True)
     
     def save (self, *args, **kwargs):
         """ Name to title case """
@@ -61,7 +61,7 @@ class Media (models.Model):
     ]
     id = models.AutoField(primary_key=True, auto_created=True, serialize=True)
     name = models.CharField(max_length=80, help_text="media name")
-    source = models.URLField(max_length=200, help_text='link of the media source')
+    source = models.URLField(max_length=600, help_text='link of the media source')
     project = models.ForeignKey('Project', on_delete=models.CASCADE, help_text='from project')
     media_type = models.CharField(max_length=10, choices=CHOICES, default="image", help_text="media type")
     
@@ -79,10 +79,10 @@ class Project (models.Model):
     last_update = models.DateField(auto_now_add=True, help_text="project last update date")
     is_done = models.BooleanField(default=False, help_text="project is done")
     project_type = models.CharField(max_length=10, choices=CHOICES, default="personal", help_text="project type")
-    logo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project logo")
-    web_page = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project web page")
-    repo = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project repository")
-    board = models.URLField(max_length=200, null=True, blank=True, help_text="link of the project manage board")
+    logo = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project logo")
+    web_page = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project web page")
+    repo = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project repository")
+    board = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project manage board")
     license = models.CharField(max_length=20, default='MIT', help_text="project license name (e.g. MIT, GPL-3.0, etc.)")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, help_text="project owner")
     tags = models.ManyToManyField(Tag, help_text="project tags")
