@@ -78,6 +78,8 @@ class Project (models.Model):
     start_date = models.DateField(default=timezone.now, help_text="project start date")
     last_update = models.DateField(auto_now_add=True, help_text="project last update date")
     is_done = models.BooleanField(default=False, help_text="project is done")
+    updated_remote = models.BooleanField(default=False, help_text="project is updated in remote repo")
+    location_pc = models.CharField(max_length=200, null=True, blank=True, help_text="project location in pc")
     project_type = models.CharField(max_length=10, choices=CHOICES, default="personal", help_text="project type")
     logo = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project logo")
     web_page = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project web page")
