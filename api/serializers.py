@@ -2,7 +2,34 @@ from django.contrib.auth.models import Group
 from . import models
 from rest_framework import serializers
 
-class TagSerializer (serializers.HyperlinkedModelSerializer):
+class ProjectSumarySerializer (serializers.ModelSerializer):
+    """ Extra serializer for project summary """    
+    
+    class Meta:
+        model = models.Project
+        fields = [
+            'id', 
+            'name', 
+            'last_update', 
+            'logo',
+            'web_page',
+            'repo', 
+        ]
+        
+class MediaSumarySerializer (serializers.ModelSerializer):
+    """ Extra serializer for media summary """    
+    
+    class Meta:
+        model = models.Media
+        fields = [
+            'id', 
+            'name', 
+            'source', 
+            'media_type',
+        ]
+
+class TagSerializer (serializers.ModelSerializer):
+    """ Tag model serializer """
     class Meta:
         model = models.Tag
         fields = [
@@ -11,7 +38,8 @@ class TagSerializer (serializers.HyperlinkedModelSerializer):
             'details'
         ]
 
-class ContactSerializer (serializers.HyperlinkedModelSerializer):
+class ContactSerializer (serializers.ModelSerializer):
+    """ Contact model serializer """
     class Meta:
         model = models.Contact
         fields = [
@@ -22,7 +50,8 @@ class ContactSerializer (serializers.HyperlinkedModelSerializer):
             'redirect', 
         ]
 
-class ToolSerializer (serializers.HyperlinkedModelSerializer):
+class ToolSerializer (serializers.ModelSerializer):
+    """ Tool model serializer """
     class Meta:
         model = models.Tool
         fields = [
@@ -31,7 +60,12 @@ class ToolSerializer (serializers.HyperlinkedModelSerializer):
             'image'
         ]
         
-class MediaSerializer (serializers.HyperlinkedModelSerializer):
+class MediaSerializer (serializers.ModelSerializer):
+    
+    """ Media model serializer """
+    
+    project = ProjectSumarySerializer(many=False, read_only=True)
+    
     class Meta:
         model = models.Media
         fields = [
@@ -39,10 +73,18 @@ class MediaSerializer (serializers.HyperlinkedModelSerializer):
             'name', 
             'source', 
             'project', 
-            'media_type'
+            'media_type',
         ]
-  
-class ProjectSerializer (serializers.HyperlinkedModelSerializer):
+        
+class ProjectSerializer (serializers.ModelSerializer):
+    
+    """ Project model serializer """
+    
+    tags = TagSerializer(many=True, read_only=True)
+    tools = ToolSerializer(many=True, read_only=True)
+    related_projects = ProjectSumarySerializer(many=True, read_only=True)
+    media = MediaSumarySerializer(many=True, read_only=True)
+    
     class Meta:
         model = models.Project
         fields = [
@@ -50,18 +92,27 @@ class ProjectSerializer (serializers.HyperlinkedModelSerializer):
             'name', 
             'start_date', 
             'last_update', 
+            'is_done',
+            'updated_remote',
+            'location_pc',
+            'project_type',
             'logo',
-            'web_page', 
+            'web_page',
+            'repo', 
+            'board', 
+            'license', 
+            'tags',
+            'tools',
+            'related_projects',
             'description', 
             'details', 
-            'repo', 
-            'license',
-            'tags', 
-            'tools', 
-            'install', 
+            'install',
+            'settings', 
             'run', 
             'build',
             'test',
             'deploy',
-            'roadmap'
+            'roadmap',
+            
+            'media',
         ]

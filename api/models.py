@@ -100,6 +100,10 @@ class Project (models.Model):
     deploy = models.TextField(null=True, blank=True)
     roadmap = models.TextField(null=True, blank=True)
     
+    @property
+    def media(self):
+        return Media.objects.filter(project=self)
+    
     def save (self, *args, **kwargs):
         """ No duplicated project name for user """
         duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
