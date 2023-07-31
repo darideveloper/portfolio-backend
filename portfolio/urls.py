@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-token-auth/', auth_views.obtain_auth_token, name='api-token-auth'),
-    path('project-markdown/', views.ProjectMarkdown.as_view(), name='project-markdown')
+    path('project-markdown/', views.ProjectMarkdown.as_view(), name='project-markdown'),
+    path('project-update-remote/', views.ProjectUpdateRemote.as_view(), name='project-update-remote'),
 ]

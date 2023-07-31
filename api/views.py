@@ -119,4 +119,42 @@ class ProjectMarkdown(views.APIView):
             "message": "markdown generated",
             "data": markdown
         })
+        
+@permission_classes((permissions.AllowAny,))
+class ProjectUpdateRemote(views.APIView):
+    """
+    API endpoint change "update_remote" project field
+    """
+    
+    def post(self, request, format=None):
+        
+        # Get repo url from request
+        project_id = request.POST.get("id")
+        if not project_id:
+            return Response({
+                "status": "error",
+                "message": "No id url provided",
+                "data": ""
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get project
+        project = models.Project.objects.filter(id=project_id)
+        if not project:
+            return Response({
+                "status": "error",
+                "message": "project not found",
+                "data": ""
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Update project data
+        project = project[0]
+        project.updated_remote = True
+        project.save ()
+                        
+        return Response({
+            "status": "ok",
+            "message": "Updated remote saved.",
+            "data": ""
+        })
+    
     
