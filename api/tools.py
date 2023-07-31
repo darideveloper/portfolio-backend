@@ -79,7 +79,7 @@ class MarkdownGenerator ():
             markdown += f"<img src='{self.project.logo}' alt='{self.project.name}' height='80px'/>\n\n"
 
         # Name
-        markdown += f"\n# {self.project.name}\n\n"
+        markdown += f"\n\n# {self.project.name}\n\n"
 
         # Web page
         if self.project.web_page:
