@@ -114,6 +114,11 @@ class Project (models.Model):
         # Change update_remote to False when update the project
         if not (self.initial_updated_remote == False and self.updated_remote == True):
             self.updated_remote = False
+            
+            # Set updated_remote to false in related projects
+            for related_project in self.related_projects.all():
+                related_project.updated_remote = False
+                related_project.save ()
         
         duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
         if duplicated:
