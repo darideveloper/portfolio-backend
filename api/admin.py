@@ -167,6 +167,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'last_update', 
         'tags', 
         'tools')
+    exclude = ('updated_remote',)
     list_per_page = 20
 
     change_form_template = 'admin/change_form_project.html'
