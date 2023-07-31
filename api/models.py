@@ -78,7 +78,7 @@ class Project (models.Model):
     start_date = models.DateField(default=timezone.now, help_text="project start date")
     last_update = models.DateField(auto_now_add=True, help_text="project last update date")
     is_done = models.BooleanField(default=False, help_text="project is done")
-    updated_remote = models.BooleanField(default=False, help_text="project is updated in remote repo")
+    updated_remote = models.BooleanField(default=False, help_text="project is updated in remote repo", editable=False)
     location_pc = models.CharField(max_length=200, null=True, blank=True, help_text="project location in pc")
     project_type = models.CharField(max_length=10, choices=CHOICES, default="personal", help_text="project type")
     logo = models.URLField(max_length=600, null=True, blank=True, help_text="link of the project logo")
@@ -106,6 +106,10 @@ class Project (models.Model):
     
     def save (self, *args, **kwargs):
         """ No duplicated project name for user """
+        
+        # Change update_remote to False when update the project
+        self.updated_remote = False
+        
         duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
         if duplicated:
             raise Exception("Project name must be unique for user")
