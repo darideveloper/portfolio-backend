@@ -109,21 +109,18 @@ class Project (models.Model):
         self.initial_updated_remote = self.updated_remote
     
     def save (self, *args, **kwargs):
-        """ No duplicated project name for user """
+        """ Custom save method """
         
-        # Change update_remote to False when update the project
-        if not (self.initial_updated_remote == False and self.updated_remote == True):
+        # Change update_remote to False when update the project from dashboard
+        if self.updated_remote == True and self.initial_updated_remote == True:
             self.updated_remote = False
             
-            # Set updated_remote to false in related projects
-            for related_project in self.related_projects.all():
-                related_project.updated_remote = False
-                related_project.save ()
-        
+        # Validate no duplicated project name for user
         duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
         if duplicated:
             raise Exception("Project name must be unique for user")
         else:
+            # Name to title case
             self.name = self.name.title()
             super(Project, self).save(*args, **kwargs)
     
