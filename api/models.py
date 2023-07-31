@@ -104,11 +104,16 @@ class Project (models.Model):
     def media(self):
         return Media.objects.filter(project=self)
     
+    def __init__ (self, *args, **kwargs):
+        super(Project, self).__init__(*args, **kwargs)
+        self.initial_updated_remote = self.updated_remote
+    
     def save (self, *args, **kwargs):
         """ No duplicated project name for user """
         
         # Change update_remote to False when update the project
-        self.updated_remote = False
+        if not (self.initial_updated_remote == False and self.updated_remote == True):
+            self.updated_remote = False
         
         duplicated = Project.objects.filter(name=self.name, user=self.user).count() > 1
         if duplicated:

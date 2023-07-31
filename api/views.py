@@ -150,6 +150,8 @@ class ProjectUpdateRemote(views.APIView):
         project = project[0]
         project.updated_remote = True
         project.save ()
+        
+        print ("Project updated remote", project.name, project.updated_remote)
                         
         return Response({
             "status": "ok",
