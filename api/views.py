@@ -9,7 +9,7 @@ from rest_framework import status
 
 class TagViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Tags to be viewed or edited.
+    API endpoint that allows Tags to be viewed.
     """
     queryset = models.Tag.objects.all().order_by('name')
     serializer_class = serializers.TagSerializer
@@ -18,7 +18,7 @@ class TagViewSet(viewsets.ModelViewSet):
     
 class ContactViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows contacts to be viewed or edited.
+    API endpoint that allows contacts to be viewed.
     """
     # queryset = models.Contact.objects.all().order_by('id')
     queryset = models.Contact.objects.all().order_by('name')
@@ -33,7 +33,7 @@ class ContactViewSet(viewsets.ModelViewSet):
 
 class ToolViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows tools to be viewed or edited.
+    API endpoint that allows tools to be viewed.
     """
     queryset = models.Tool.objects.all().order_by('name')
     serializer_class = serializers.ToolSerializer
@@ -42,7 +42,7 @@ class ToolViewSet(viewsets.ModelViewSet):
     
 class MediaViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows media to be viewed or edited.
+    API endpoint that allows media to be viewed.
     """
     queryset = models.Media.objects.all().order_by('-id')
     serializer_class = serializers.MediaSerializer
@@ -57,7 +57,7 @@ class MediaViewSet(viewsets.ModelViewSet):
     
 class ProjectViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows projects to be viewed or edited.
+    API endpoint that allows projects to be viewed.
     """
     queryset = models.Project.objects.all().order_by('-last_update')
     serializer_class = serializers.ProjectSerializer
@@ -68,6 +68,21 @@ class ProjectViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         user = self.request.user
         return queryset.filter(user=user.id)
+    
+class ProjectSumaryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows projects sumary to be viewed.
+    """
+    queryset = models.Project.objects.all().order_by('-last_update')
+    serializer_class = serializers.ProjectSumarySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        user = self.request.user
+        return queryset.filter(user=user.id)
+
 
 @permission_classes((permissions.AllowAny,))
 class ProjectMarkdown(views.APIView):

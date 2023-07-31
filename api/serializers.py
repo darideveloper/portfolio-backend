@@ -1,4 +1,3 @@
-from django.contrib.auth.models import Group
 from . import models
 from rest_framework import serializers
 
@@ -14,6 +13,8 @@ class ProjectSumarySerializer (serializers.ModelSerializer):
             'logo',
             'web_page',
             'repo', 
+            'updated_remote',
+            'location_pc', 
         ]
         
 class MediaSumarySerializer (serializers.ModelSerializer):
@@ -61,7 +62,6 @@ class ToolSerializer (serializers.ModelSerializer):
         ]
         
 class MediaSerializer (serializers.ModelSerializer):
-    
     """ Media model serializer """
     
     project = ProjectSumarySerializer(many=False, read_only=True)
@@ -77,7 +77,6 @@ class MediaSerializer (serializers.ModelSerializer):
         ]
         
 class ProjectSerializer (serializers.ModelSerializer):
-    
     """ Project model serializer """
     
     tags = TagSerializer(many=True, read_only=True)
@@ -113,6 +112,5 @@ class ProjectSerializer (serializers.ModelSerializer):
             'test',
             'deploy',
             'roadmap',
-            
             'media',
         ]
