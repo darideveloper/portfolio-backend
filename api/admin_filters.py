@@ -33,17 +33,17 @@ class FilterUser (admin.SimpleListFilter):
         
         is_admin = get_is_admin(request)
         if is_admin:
-            
-            if self.value():
-                # Return filtered queryset
-                return queryset.filter(user=self.value())
-            else:
-                # return all suers data 
-                return queryset
-        
+            queryset = queryset.filter(user__in=User.objects.all())        
         else:
             # Return only current user data
             return queryset.filter(user=request.user)
+        
+        if self.value():
+            # Return filtered queryset
+            return queryset.filter(user=self.value())
+        else:
+            # return all suers data 
+            return queryset
             
         
 class FilterProjectUser (admin.SimpleListFilter):
@@ -68,15 +68,16 @@ class FilterProjectUser (admin.SimpleListFilter):
         
         is_admin = get_is_admin(request)
         if is_admin:
+            queryset = queryset.filter(project__in=models.Project.objects.all())
             
-            if self.value():
-                # Return filtered queryset
-                return queryset.filter(project=self.value())
-            else:
-                # return all suers data 
-                return queryset
-        
         else:
             # Return only current user data
-            return queryset.filter(project__user=request.user)
+            queryset = queryset.filter(project__user=request.user)
             
+        if self.value():
+            # Return filtered queryset
+            return queryset.filter(project=self.value())
+        else:
+            # return all suers data 
+            return queryset
+    
