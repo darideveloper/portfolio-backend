@@ -234,10 +234,6 @@ class MarkdownGenerator ():
             markdown += f"{self.__get_medias__()}"
             markdown += f"{self.__get_text_fields__()}"
 
-            # Scape quotes
-            markdown = markdown.replace('"', '\\"').replace(
-                "'", "\\'").replace("`", "\\`")
-
         return markdown
 
 

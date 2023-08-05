@@ -178,13 +178,19 @@ class ProjectAdmin(admin.ModelAdmin):
         """ deactive user field """
         
         if object_id.isdigit():
+            
+            # Get md and scap quotes
             markdown_generator = tools.MarkdownGenerator(object_id)
+            markdown = markdown_generator.get_markdown()
+            markdown = markdown.replace('"', '\\"').replace(
+                "'", "\\'").replace("`", "\\`")
+            
             tags_tools = tools.get_tags_tools(object_id)
 
             # Get user group of the user and submit to frontend
             return super(ProjectAdmin, self).change_view(
                 request, object_id, form_url, extra_context={
-                    "markdown": markdown_generator.get_markdown(),
+                    "markdown": markdown,
                     "tags_tools": tags_tools
                 },
             )
