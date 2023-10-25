@@ -47,7 +47,7 @@ class ContactSerializer (serializers.ModelSerializer):
             'id', 
             'name', 
             'image', 
-            'svg',
+            'svg_path',
             'redirect', 
         ]
 
