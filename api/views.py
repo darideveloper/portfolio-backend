@@ -69,12 +69,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return queryset.filter(user=user.id)
     
-class ProjectSumaryViewSet(viewsets.ModelViewSet):
+class ProjectSummaryViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows projects sumary to be viewed.
+    API endpoint that allows projects Summary to be viewed.
     """
     queryset = models.Project.objects.all().order_by('-last_update')
-    serializer_class = serializers.ProjectSumarySerializer
+    serializer_class = serializers.ProjectSummarySerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get', 'head']
     

@@ -17,7 +17,7 @@ router.register (r'contacts', views.ContactViewSet)
 router.register (r'tools', views.ToolViewSet)
 router.register (r'medias', views.MediaViewSet)
 router.register (r'projects', views.ProjectViewSet)
-router.register (r'projects-sumary', views.ProjectSumaryViewSet, basename='projects-sumary')
+router.register (r'projects-summary', views.ProjectSummaryViewSet, basename='projects-summary')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

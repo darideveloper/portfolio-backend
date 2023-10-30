@@ -1,7 +1,7 @@
 from . import models
 from rest_framework import serializers
 
-class ProjectSumarySerializer (serializers.ModelSerializer):
+class ProjectSummarySerializer (serializers.ModelSerializer):
     """ Extra serializer for project summary """    
     
     class Meta:
@@ -16,7 +16,7 @@ class ProjectSumarySerializer (serializers.ModelSerializer):
             'description'
         ]
         
-class MediaSumarySerializer (serializers.ModelSerializer):
+class MediaSummarySerializer (serializers.ModelSerializer):
     """ Extra serializer for media summary """    
     
     class Meta:
@@ -63,7 +63,7 @@ class ToolSerializer (serializers.ModelSerializer):
 class MediaSerializer (serializers.ModelSerializer):
     """ Media model serializer """
     
-    project = ProjectSumarySerializer(many=False, read_only=True)
+    project = ProjectSummarySerializer(many=False, read_only=True)
     
     class Meta:
         model = models.Media
@@ -80,8 +80,8 @@ class ProjectSerializer (serializers.ModelSerializer):
     
     tags = TagSerializer(many=True, read_only=True)
     tools = ToolSerializer(many=True, read_only=True)
-    related_projects = ProjectSumarySerializer(many=True, read_only=True)
-    media = MediaSumarySerializer(many=True, read_only=True)
+    related_projects = ProjectSummarySerializer(many=True, read_only=True)
+    media = MediaSummarySerializer(many=True, read_only=True)
     
     class Meta:
         model = models.Project
