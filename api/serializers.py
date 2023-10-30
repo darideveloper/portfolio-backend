@@ -13,8 +13,7 @@ class ProjectSumarySerializer (serializers.ModelSerializer):
             'logo',
             'web_page',
             'repo', 
-            'updated_remote',
-            'location_pc', 
+            'description'
         ]
         
 class MediaSumarySerializer (serializers.ModelSerializer):
