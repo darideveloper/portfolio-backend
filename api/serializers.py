@@ -113,3 +113,19 @@ class ProjectSerializer (serializers.ModelSerializer):
             'roadmap',
             'media',
         ]
+        
+class ProjectToolsMediasSerializer (serializers.ModelSerializer):
+    """ Project model serializer """
+    
+    tools = ToolSerializer(many=True, read_only=True)
+    media = MediaSummarySerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = models.Project
+        fields = [
+            'id', 
+            'name', 
+            'logo',
+            'tools',
+            'media',
+        ]

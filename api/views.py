@@ -83,6 +83,20 @@ class ProjectSummaryViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return queryset.filter(user=user.id)
 
+class ProjectToolsMediasViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows projects tools and media  to be viewed.
+    """
+    queryset = models.Project.objects.all().order_by('-last_update')
+    serializer_class = serializers.ProjectToolsMediasSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'head']
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        user = self.request.user
+        return queryset.filter(user=user.id)
+
 
 @permission_classes((permissions.AllowAny,))
 class ProjectMarkdown(views.APIView):

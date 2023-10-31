@@ -18,6 +18,8 @@ router.register (r'tools', views.ToolViewSet)
 router.register (r'medias', views.MediaViewSet)
 router.register (r'projects', views.ProjectViewSet)
 router.register (r'projects-summary', views.ProjectSummaryViewSet, basename='projects-summary')
+router.register (r'projects-tools-medias', views.ProjectToolsMediasViewSet, basename='projects-tools-medias')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
