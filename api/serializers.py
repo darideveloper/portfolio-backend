@@ -13,7 +13,8 @@ class ProjectSummarySerializer (serializers.ModelSerializer):
             'logo',
             'web_page',
             'repo', 
-            'description'
+            'description',
+            'is_done'
         ]
         
 class MediaSummarySerializer (serializers.ModelSerializer):
