@@ -129,4 +129,5 @@ class ProjectToolsMediasSerializer (serializers.ModelSerializer):
             'logo',
             'tools',
             'media',
+            'is_done',
         ]
